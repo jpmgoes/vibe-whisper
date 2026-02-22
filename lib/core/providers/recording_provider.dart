@@ -24,62 +24,81 @@ class RecordingProvider with ChangeNotifier {
   String? get lastResult => _lastResult;
 
   Future<void> toggleRecording() async {
+    debugPrint('[RecordingProvider] toggleRecording called. Current state: $_state');
     if (_state == RecordingState.idle || _state == RecordingState.success || _state == RecordingState.error) {
       await _startRecording();
     } else if (_state == RecordingState.recording) {
       await _stopAndProcessRecording();
+    } else {
+      debugPrint('[RecordingProvider] Cannot toggle recording while in $_state state');
     }
   }
 
   Future<void> _startRecording() async {
     try {
+      debugPrint('[RecordingProvider] Validating constraints for starting...');
       if (_settings.groqApiKey == null || _settings.groqApiKey!.isEmpty) {
         throw Exception('Groq API Key is missing. Please configure it in settings.');
       }
+      debugPrint('[RecordingProvider] Invoking audioService.startRecording()');
       await _audioService.startRecording();
       _state = RecordingState.recording;
       _errorMessage = null;
       _showNotification('Whisper', 'Listening...');
       notifyListeners();
-    } catch (e) {
+      debugPrint('[RecordingProvider] Started successfully.');
+    } catch (e, stack) {
+      debugPrint('[RecordingProvider] Exception in _startRecording: $e\n$stack');
       _handleError('Failed to start recording: ${e.toString()}');
     }
   }
 
   Future<void> _stopAndProcessRecording() async {
     try {
+      debugPrint('[RecordingProvider] _stopAndProcessRecording called. Updating state to processing...');
       _state = RecordingState.processing;
       _showNotification('Whisper', 'Processing audio...');
       notifyListeners();
 
+      debugPrint('[RecordingProvider] Awaiting audioService.stopRecording()...');
       final audioPath = await _audioService.stopRecording();
+      debugPrint('[RecordingProvider] Audio record path returned: $audioPath');
+      
       if (audioPath == null) throw Exception('Audio file path is null');
 
       // 1. Transcription
+      debugPrint('[RecordingProvider] Starting transcription step via GroqService...');
       final transcription = await _groqService.transcribeAudio(
         _settings.groqApiKey!, 
         audioPath, 
         _settings.whisperModel
       );
+      debugPrint('[RecordingProvider] Transcription complete: $transcription');
 
       // 2. Treatment
+      debugPrint('[RecordingProvider] Starting text treatment step via GroqService...');
       final cleanedText = await _groqService.treatText(
         _settings.groqApiKey!, 
         transcription, 
         _settings.llmModel
       );
+      debugPrint('[RecordingProvider] Treatment complete: $cleanedText');
 
       // 3. Clipboard & Paste
+      debugPrint('[RecordingProvider] Copying to clipboard...');
       await _clipboardService.copyToClipboard(cleanedText);
       if (_settings.autoPaste) {
+        debugPrint('[RecordingProvider] Simulating auto-paste...');
         await _clipboardService.simulatePaste();
       }
 
       _lastResult = cleanedText;
       _state = RecordingState.success;
       _showNotification('Success', 'Text copied to clipboard');
+      debugPrint('[RecordingProvider] Processing flow completed successfully.');
       notifyListeners();
-    } catch (e) {
+    } catch (e, stack) {
+      debugPrint('[RecordingProvider] Exception in _stopAndProcessRecording: $e\n$stack');
       _handleError(e.toString());
     }
   }

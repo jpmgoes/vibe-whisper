@@ -332,16 +332,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               border: Border(top: BorderSide(color: borderColor)),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                TextButton.icon(
-                  onPressed: () {
-                    // Test connection logic
-                  },
-                  icon: const Icon(Icons.wifi, size: 18),
-                  label: const Text('Test Connection'),
-                  style: TextButton.styleFrom(foregroundColor: Colors.grey.shade600),
-                ),
                 ElevatedButton.icon(
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Settings saved automatically.')));

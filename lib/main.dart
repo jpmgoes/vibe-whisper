@@ -16,6 +16,7 @@ import 'core/providers/settings_provider.dart';
 import 'core/providers/recording_provider.dart';
 import 'core/theme/app_theme.dart';
 import 'ui/app_router.dart';
+import 'ui/screens/overlay_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +45,11 @@ void main() async {
   );
 
   // Register Shortcut
-  await shortcutService.init(() {
+  await shortcutService.init(() async {
+    if (!await windowManager.isVisible()) {
+      await windowManager.show();
+    }
+    await windowManager.focus();
     recordingProvider.toggleRecording();
   });
 
@@ -105,6 +110,21 @@ class OwnWhisperApp extends StatelessWidget {
         Locale('es', ''),
       ],
       routerConfig: router,
+      builder: (context, child) {
+        return Stack(
+          children: [
+            child!,
+            Consumer<RecordingProvider>(
+              builder: (context, provider, _) {
+                if (provider.state != RecordingState.idle) {
+                  return const OverlayScreen();
+                }
+                return const SizedBox.shrink();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
