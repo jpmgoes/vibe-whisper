@@ -93,7 +93,7 @@ class RecordingProvider with ChangeNotifier {
       }
 
       _lastResult = cleanedText;
-      _state = RecordingState.success;
+      _state = RecordingState.idle;
       _showNotification('Success', 'Text copied to clipboard');
       debugPrint('[RecordingProvider] Processing flow completed successfully.');
       notifyListeners();
@@ -104,7 +104,7 @@ class RecordingProvider with ChangeNotifier {
   }
 
   void _handleError(String message) {
-    _state = RecordingState.error;
+    _state = RecordingState.idle;
     _errorMessage = message;
     _showNotification('Error', message);
     notifyListeners();

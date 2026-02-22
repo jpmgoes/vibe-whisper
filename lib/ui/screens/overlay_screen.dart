@@ -39,92 +39,37 @@ class OverlayScreen extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          // Semi-transparent backdrop
-          Positioned.fill(
-            child: Container(color: Colors.black.withOpacity(0.4)),
-          ),
-          
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Animated glow behind the pill
-                Container(
-                  width: 240,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white.withOpacity(0.1),
-                        blurRadius: 15,
-                        spreadRadius: state == RecordingState.recording ? 5 : 0,
-                      )
-                    ],
-                  ),
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: Alignment.center,
-                    children: [
-                      // The Pill
-                      Container(
-                        width: 240,
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(100),
-                          border: Border.all(color: Colors.grey.shade800),
-                          boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 20, offset: Offset(0, 10))],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (state == RecordingState.recording) ...[
-                              // Waveform
-                              _buildWaveBars(),
-                            ] else if (state == RecordingState.processing) ...[
-                              const SizedBox(
-                                width: 24,
-                                height: 24,
-                                child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-                              ),
-                              const SizedBox(width: 16),
-                              const Text('Processing...', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500)),
-                            ]
-                          ],
-                        ),
-                      ).animate().scale(curve: Curves.easeOutBack, duration: 400.ms),
-
-                      // Stop button (visible only when recording)
-                      if (state == RecordingState.recording)
-                        Positioned(
-                          right: 12,
-                          child: IconButton(
-                            icon: const Icon(Icons.stop, color: Colors.grey),
-                            hoverColor: Colors.grey.shade800,
-                            splashRadius: 20,
-                            onPressed: () {
-                              recordingProvider.toggleRecording();
-                            },
-                          ),
-                        ),
-                    ],
-                  ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 24.0),
+              child: Container(
+                width: 140,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF101922),
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: Colors.white.withOpacity(0.1)),
+                  boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 10, offset: Offset(0, 4))],
                 ),
-                
-                const SizedBox(height: 24),
-                
-                // Shortcut hints (similar to Stitch HTML)
-                if (state == RecordingState.recording)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildHintKey('ESC', 'to cancel'),
-                      const SizedBox(width: 16),
-                      _buildHintKey('Shortcut', 'to finish'), // Using shortcut instead of return as that's the current behavior
-                    ],
-                  ).animate().fadeIn(delay: 500.ms),
-              ],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (state == RecordingState.recording) ...[
+                      // Waveform
+                      _buildWaveBars(),
+                    ] else if (state == RecordingState.processing) ...[
+                      const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                      ),
+                      const SizedBox(width: 8),
+                      const Text('Processing', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w500)),
+                    ]
+                  ],
+                ),
+              ).animate().scale(curve: Curves.easeOutBack, duration: 400.ms),
             ),
           )
         ],
@@ -133,14 +78,14 @@ class OverlayScreen extends StatelessWidget {
   }
 
   Widget _buildWaveBars() {
-    final heights = [8.0, 12.0, 20.0, 16.0, 24.0, 32.0, 28.0, 20.0, 16.0, 12.0, 8.0, 4.0];
-    final delays = [400, 200, 600, 800, 100, 500, 300, 700, 200, 600, 400, 100];
+    final heights = [6.0, 10.0, 16.0, 12.0, 20.0, 16.0, 10.0, 6.0];
+    final delays = [400, 200, 600, 100, 500, 300, 700, 200];
     
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: List.generate(12, (index) {
+      children: List.generate(8, (index) {
         return Container(
-          margin: const EdgeInsets.symmetric(horizontal: 1.5),
+          margin: const EdgeInsets.symmetric(horizontal: 2.0),
           width: 3,
           height: heights[index],
           decoration: BoxDecoration(
@@ -156,24 +101,6 @@ class OverlayScreen extends StatelessWidget {
            curve: Curves.easeInOut,
          );
       }),
-    );
-  }
-
-  Widget _buildHintKey(String key, String action) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(4),
-            border: Border.all(color: Colors.white.withOpacity(0.1)),
-          ),
-          child: Text(key, style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
-        ),
-        const SizedBox(width: 6),
-        Text(action, style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 11)),
-      ],
     );
   }
 }

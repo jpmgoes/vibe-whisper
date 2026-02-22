@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/providers/settings_provider.dart';
 import 'screens/overlay_screen.dart';
@@ -8,7 +9,7 @@ class AppRouter {
   static GoRouter createRouter(SettingsProvider settings) {
     final initialLocation = (settings.groqApiKey == null || settings.groqApiKey!.isEmpty) 
       ? '/onboarding' 
-      : '/settings';
+      : '/hidden';
 
     return GoRouter(
       initialLocation: initialLocation,
@@ -24,6 +25,10 @@ class AppRouter {
         GoRoute(
           path: '/overlay',
           builder: (context, state) => const OverlayScreen(),
+        ),
+        GoRoute(
+          path: '/hidden',
+          builder: (context, state) => const Scaffold(backgroundColor: Colors.transparent),
         ),
       ],
     );
