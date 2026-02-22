@@ -11,8 +11,8 @@ class SystemTrayService with TrayListener {
 
   Future<void> init() async {
     if (Platform.isMacOS) {
-      await trayManager.setIcon('assets/images/tray_icon.png');
-      await trayManager.setTitle('🎙️');
+      await trayManager.setIcon('assets/images/tray_icon.png', isTemplate: true);
+      await trayManager.setTitle('');
     } else {
       // For Windows/Linux, you normally need an icon file, but we'll try a fallback text or ignore
     }
