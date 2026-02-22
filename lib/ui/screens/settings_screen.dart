@@ -48,57 +48,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               windowManager.startDragging();
             },
             child: Container(
-              height: 64,
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(vertical: 16),
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
                 border: Border(bottom: BorderSide(color: borderColor)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 32,
-                        height: 32,
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.primary,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: theme.colorScheme.primary.withAlpha(100),
-                              blurRadius: 10,
-                            )
-                          ],
-                        ),
-                        child: const Icon(Icons.mic, color: Colors.white, size: 18),
-                      ),
-                      const SizedBox(width: 12),
-                      Text(
-                        'Whisper Desktop',
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: isDark ? Colors.white : Colors.black87,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.remove, size: 20),
-                        color: Colors.grey,
-                        onPressed: () => windowManager.minimize(),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.close, size: 20),
-                        color: Colors.grey,
-                        onPressed: () => windowManager.close(),
-                      ),
-                    ],
-                  )
-                ],
               ),
             ),
           ),
