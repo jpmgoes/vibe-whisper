@@ -1,0 +1,23 @@
+{
+  "@@locale": "es",
+  "appTitle": "Whisper",
+  "recordingIndicator": "Escuchando...",
+  "settings": "Configuración",
+  "apiSettings": "Configuración de API",
+  "groqApiKey": "Clave API de Groq",
+  "llmModel": "Modelo de Tratamiento (LLM)",
+  "whisperModel": "Modelo Whisper",
+  "generalSettings": "General",
+  "themeMode": "Tema",
+  "language": "Idioma",
+  "autoPaste": "Pegar automáticamente en el campo activo",
+  "system": "Sistema",
+  "light": "Claro",
+  "dark": "Oscuro",
+  "globalShortcut": "Atajo Global",
+  "save": "Guardar",
+  "success": "Éxito",
+  "error": "Error",
+  "textCopied": "Texto copiado al portapapeles",
+  "enterApiKey": "Por favor, introduzca su Clave API"
+}

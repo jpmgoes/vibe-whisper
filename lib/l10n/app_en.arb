@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "appTitle": "Whisper",
+  "recordingIndicator": "Listening...",
+  "settings": "Settings",
+  "apiSettings": "API Settings",
+  "groqApiKey": "Groq API Key",
+  "llmModel": "Treatment Model (LLM)",
+  "whisperModel": "Whisper Model",
+  "generalSettings": "General",
+  "themeMode": "Theme Mode",
+  "language": "Language",
+  "autoPaste": "Auto-Paste into Active Field",
+  "system": "System",
+  "light": "Light",
+  "dark": "Dark",
+  "globalShortcut": "Global Shortcut",
+  "save": "Save",
+  "success": "Success",
+  "error": "Error",
+  "textCopied": "Text copied to clipboard",
+  "enterApiKey": "Please enter your API Key"
+}
