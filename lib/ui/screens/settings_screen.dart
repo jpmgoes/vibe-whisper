@@ -4,6 +4,7 @@ import '../../core/providers/settings_provider.dart';
 import '../../l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'dart:async';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -15,6 +16,16 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   final _apiKeyController = TextEditingController();
   bool _obscureKey = true;
+  Timer? _debounce;
+
+  void _showSavedNotification() {
+    final l10n = AppLocalizations.of(context)!;
+    Flushbar(
+      message: l10n.settingsSaved,
+      duration: const Duration(seconds: 2),
+      backgroundColor: Colors.green.shade800,
+    ).show(context);
+  }
 
   @override
   void initState() {
@@ -25,6 +36,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   void dispose() {
+    _debounce?.cancel();
     _apiKeyController.dispose();
     super.dispose();
   }
@@ -142,7 +154,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           onPressed: () => setState(() => _obscureKey = !_obscureKey),
                         ),
                       ),
-                      onChanged: (val) => settings.setGroqApiKey(val),
+                      onChanged: (val) {
+                        settings.setGroqApiKey(val);
+                        if (_debounce?.isActive ?? false) _debounce!.cancel();
+                        _debounce = Timer(const Duration(milliseconds: 1000), () {
+                          if (mounted) _showSavedNotification();
+                        });
+                      },
                     ),
                     const SizedBox(height: 6),
                     Text(l10n.keyStoredLocally, style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
@@ -161,7 +179,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: borderColor)),
                       ),
                       onChanged: (val) {
-                        if (val != null) settings.setLlmModel(val);
+                        if (val != null) {
+                          settings.setLlmModel(val);
+                          _showSavedNotification();
+                        }
                       },
                       icon: const Icon(Icons.expand_more, color: Colors.grey),
                     ),
@@ -180,7 +201,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: borderColor)),
                       ),
                       onChanged: (val) {
-                        if (val != null) settings.setWhisperModel(val);
+                        if (val != null) {
+                          settings.setWhisperModel(val);
+                          _showSavedNotification();
+                        }
                       },
                       icon: const Icon(Icons.expand_more, color: Colors.grey),
                     ),
@@ -263,7 +287,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 Text(l10n.fillActiveField, style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
                                 Switch(
                                   value: settings.autoPaste,
-                                  onChanged: (val) => settings.setAutoPaste(val),
+                                  onChanged: (val) {
+                                    settings.setAutoPaste(val);
+                                    _showSavedNotification();
+                                  },
                                   activeThumbColor: theme.colorScheme.primary,
                                 ),
                               ],
@@ -317,11 +344,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               onChanged: (v) {
                                 if (v != null) {
                                     settings.setAppLanguage(v);
-                                    Flushbar(
-                                      message: l10n.settingsSaved,
-                                      duration: const Duration(seconds: 2),
-                                      backgroundColor: Colors.green.shade800,
-                                    ).show(context);
+                                    _showSavedNotification();
                                 }
                               },
                               icon: const Icon(Icons.expand_more, color: Colors.grey),
@@ -336,38 +359,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
 
-          // Bottom Bar
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            decoration: BoxDecoration(
-              color: isDark ? const Color(0xFF18181b).withValues(alpha: 0.5) : Colors.grey.shade50,
-              border: Border(top: BorderSide(color: borderColor)),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Flushbar(
-                      message: l10n.settingsSaved,
-                      duration: const Duration(seconds: 2),
-                      backgroundColor: Colors.green.shade800,
-                    ).show(context);
-                  },
-                  icon: const Icon(Icons.save, size: 18),
-                  label: Text(l10n.saveChanges),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: theme.colorScheme.primary,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                    elevation: 4,
-                  ),
-                )
-              ],
-            ),
-          )
+
         ],
       ),
     );
