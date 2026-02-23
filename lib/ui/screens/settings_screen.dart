@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/providers/settings_provider.dart';
+import '../../core/constants/app_languages.dart';
 import '../../l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:another_flushbar/flushbar.dart';
@@ -336,11 +337,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                               ),
                               initialValue: settings.appLanguage,
-                              items: const [
-                                DropdownMenuItem(value: 'en', child: Text('🇺🇸 English', style: TextStyle(fontSize: 13))),
-                                DropdownMenuItem(value: 'pt', child: Text('🇧🇷 Português', style: TextStyle(fontSize: 13))),
-                                DropdownMenuItem(value: 'es', child: Text('🇪🇸 Español', style: TextStyle(fontSize: 13))),
-                              ],
+                              items: appLanguages.entries.map((e) => DropdownMenuItem(value: e.key, child: Text(e.value, style: const TextStyle(fontSize: 13)))).toList(),
                               onChanged: (v) {
                                 if (v != null) {
                                     settings.setAppLanguage(v);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/providers/settings_provider.dart';
+import '../../core/constants/app_languages.dart';
 import '../../l10n/app_localizations.dart';
 import 'package:another_flushbar/flushbar.dart';
 
@@ -175,11 +176,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             fillColor: isDark ? const Color(0xFF111a22) : Colors.grey.shade50,
                           ),
                           initialValue: settings.appLanguage,
-                          items: const [
-                            DropdownMenuItem(value: 'en', child: Text('🇺🇸 English')),
-                            DropdownMenuItem(value: 'pt', child: Text('🇧🇷 Português')),
-                            DropdownMenuItem(value: 'es', child: Text('🇪🇸 Español')),
-                          ],
+                          items: appLanguages.entries.map((e) => DropdownMenuItem(value: e.key, child: Text(e.value))).toList(),
                           onChanged: (v) {
                             if (v != null) settings.setAppLanguage(v);
                           },
