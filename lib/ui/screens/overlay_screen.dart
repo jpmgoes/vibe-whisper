@@ -59,7 +59,7 @@ class OverlayScreen extends StatelessWidget {
                   children: [
                     if (state == RecordingState.recording) ...[
                       // Waveform
-                      _buildWaveBars(),
+                      _buildWaveBars(recordingProvider.currentVolume),
                     ] else if (state == RecordingState.processing) ...[
                       const SizedBox(
                         width: 16,
@@ -79,29 +79,28 @@ class OverlayScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildWaveBars() {
+  Widget _buildWaveBars(double volume) {
+    // Base heights for the waveform visual envelope
     final heights = [6.0, 10.0, 16.0, 12.0, 20.0, 16.0, 10.0, 6.0];
-    final delays = [400, 200, 600, 100, 500, 300, 700, 200];
+    
+    // Scale factor: minimum 0.2 height when silent, scales up with volume. 
+    // Multiplied by 2.0 to make the volume changes more visible, capped at 2.5
+    final scale = 0.2 + (volume * 4.0).clamp(0.0, 2.5);
     
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: List.generate(8, (index) {
-        return Container(
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 75),
+          curve: Curves.easeOutCirc,
           margin: const EdgeInsets.symmetric(horizontal: 2.0),
           width: 3,
-          height: heights[index],
+          height: heights[index] * scale,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(4),
           ),
-        ).animate(onPlay: (controller) => controller.repeat(reverse: true))
-         .scaleY(
-           begin: 0.3, 
-           end: 1.0, 
-           duration: 600.ms, 
-           delay: delays[index].ms,
-           curve: Curves.easeInOut,
-         );
+        );
       }),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:local_notifier/local_notifier.dart';
+import 'dart:async';
+import 'package:record/record.dart';
 import '../services/audio_service.dart';
 import '../services/groq_service.dart';
 import '../services/clipboard_service.dart';
@@ -20,10 +22,13 @@ class RecordingProvider with ChangeNotifier {
   RecordingState _state = RecordingState.idle;
   String? _errorMessage;
   String? _lastResult;
+  double _currentVolume = 0.0;
+  StreamSubscription<Amplitude>? _amplitudeSubscription;
 
   RecordingState get state => _state;
   String? get errorMessage => _errorMessage;
   String? get lastResult => _lastResult;
+  double get currentVolume => _currentVolume;
 
   Future<void> toggleRecording() async {
     debugPrint('[RecordingProvider] toggleRecording called. Current state: $_state');
@@ -50,6 +55,18 @@ class RecordingProvider with ChangeNotifier {
       await _audioService.startRecording();
       _state = RecordingState.recording;
       _errorMessage = null;
+
+      _amplitudeSubscription?.cancel();
+      _amplitudeSubscription = _audioService.onAmplitudeChanged(const Duration(milliseconds: 50)).listen((amplitude) {
+        // Assume silence below -45 dB
+        final minDb = -45.0; 
+        double volume = (amplitude.current - minDb) / -minDb; 
+        if (volume < 0.0) volume = 0.0;
+        if (volume > 1.0) volume = 1.0;
+        
+        _currentVolume = volume;
+        notifyListeners();
+      });
       _audioPlayerService.playStart();
       _showNotification('Whisper', 'Listening...');
       notifyListeners();
@@ -64,6 +81,8 @@ class RecordingProvider with ChangeNotifier {
   Future<void> _stopAndProcessRecording() async {
     try {
       debugPrint('[RecordingProvider] _stopAndProcessRecording called. Updating state to processing...');
+      _amplitudeSubscription?.cancel();
+      _currentVolume = 0.0;
       _state = RecordingState.processing;
       _audioPlayerService.startLoadingLoop();
       _showNotification('Whisper', 'Processing audio...');
@@ -137,6 +156,8 @@ class RecordingProvider with ChangeNotifier {
   }
 
   void _handleError(String message) {
+    _amplitudeSubscription?.cancel();
+    _currentVolume = 0.0;
     _state = RecordingState.idle;
     _errorMessage = message;
     _showNotification('Error', message);

@@ -8,6 +8,10 @@ class AudioService {
   final AudioRecorder _record = AudioRecorder();
   String? _currentPath;
 
+  Stream<Amplitude> onAmplitudeChanged(Duration interval) {
+    return _record.onAmplitudeChanged(interval);
+  }
+
   Future<void> startRecording() async {
     debugPrint('[AudioService] Requesting microphone permission...');
     if (await _record.hasPermission()) {
