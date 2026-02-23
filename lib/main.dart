@@ -97,7 +97,7 @@ void main() async {
   });
 
   // Register Shortcut
-  await shortcutService.init(() async {
+  await shortcutService.init(savedShortcutJson: settingsProvider.globalShortcut, () async {
     // If not currently recording, we are ABOUT to start recording.
     bool wasFocused = await windowManager.isFocused();
     
@@ -148,6 +148,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        Provider.value(value: shortcutService),
         ChangeNotifierProvider.value(value: settingsProvider),
         ChangeNotifierProvider.value(value: recordingProvider),
       ],

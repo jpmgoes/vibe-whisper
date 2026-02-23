@@ -6,6 +6,10 @@ import '../../l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'dart:async';
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:hotkey_manager/hotkey_manager.dart';
+import '../../core/services/shortcut_service.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -18,6 +22,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final _apiKeyController = TextEditingController();
   bool _obscureKey = true;
   Timer? _debounce;
+  bool _isRecordingShortcut = false;
+  HotKey? _tempHotKey;
 
   void _showSavedNotification() {
     final l10n = AppLocalizations.of(context)!;
@@ -249,21 +255,80 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           children: [
                             Text(l10n.toggleRecording, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: isDark ? Colors.grey.shade300 : Colors.grey.shade600)),
                             const SizedBox(height: 12),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    _KeyboardKey(label: 'Cmd/Win', isDark: isDark),
-                                    const SizedBox(width: 6),
-                                    _KeyboardKey(label: 'Shift', isDark: isDark),
-                                    const SizedBox(width: 6),
-                                    _KeyboardKey(label: 'Space', isDark: isDark),
-                                  ],
-                                ),
-                                const Icon(Icons.edit, size: 16, color: Colors.grey),
-                              ],
-                            )
+                            Consumer<SettingsProvider>(
+                              builder: (context, settings, child) {
+                                if (_isRecordingShortcut) {
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Press a shortcut combination...',
+                                        style: TextStyle(fontSize: 11, color: theme.colorScheme.primary, fontStyle: FontStyle.italic),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      HotKeyRecorder(
+                                        initalHotKey: _tempHotKey ?? _parseHotKey(settings.globalShortcut),
+                                        onHotKeyRecorded: (HotKey hotKey) {
+                                          setState(() {
+                                            _tempHotKey = hotKey;
+                                          });
+                                        },
+                                      ),
+                                      const SizedBox(height: 12),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          TextButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                _isRecordingShortcut = false;
+                                                _tempHotKey = null;
+                                              });
+                                            },
+                                            child: Text('Cancel', style: TextStyle(color: Colors.grey.shade500, fontSize: 13)),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          ElevatedButton(
+                                            onPressed: () async {
+                                              if (_tempHotKey != null) {
+                                                final jsonStr = jsonEncode(_tempHotKey!.toJson());
+                                                final shortcutService = context.read<ShortcutService>();
+                                                await settings.setGlobalShortcut(jsonStr);
+                                                await shortcutService.updateShortcut(jsonStr);
+                                                setState(() {
+                                                  _isRecordingShortcut = false;
+                                                  _tempHotKey = null;
+                                                });
+                                                if (mounted) {
+                                                  _showSavedNotification();
+                                                }
+                                              }
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: theme.colorScheme.primary,
+                                              foregroundColor: Colors.white,
+                                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                            ),
+                                            child: const Text('Save', style: TextStyle(fontSize: 13)),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                }
+
+                                final hotKey = _parseHotKey(settings.globalShortcut);
+                                return _ShortcutDisplay(
+                                  hotKey: hotKey!,
+                                  isDark: isDark,
+                                  onEdit: () {
+                                    setState(() {
+                                      _isRecordingShortcut = true;
+                                    });
+                                  },
+                                );
+                              }
+                            ),
                           ],
                         ),
                       ),
@@ -359,6 +424,81 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
         ],
       ),
+    );
+  }
+
+  HotKey? _parseHotKey(String hotKeyJsonStr) {
+    if (hotKeyJsonStr.isEmpty || hotKeyJsonStr == 'Meta+Shift+Space') {
+      return HotKey(
+        key: PhysicalKeyboardKey.space,
+        modifiers: [HotKeyModifier.meta, HotKeyModifier.shift],
+        scope: HotKeyScope.system,
+      );
+    }
+    try {
+      final Map<String, dynamic> jsonMap = jsonDecode(hotKeyJsonStr);
+      return HotKey.fromJson(jsonMap);
+    } catch (e) {
+      debugPrint('[SettingsScreen] Failed to parse HotKey JSON ($hotKeyJsonStr): $e');
+      return HotKey(
+        key: PhysicalKeyboardKey.space,
+        modifiers: [HotKeyModifier.meta, HotKeyModifier.shift],
+        scope: HotKeyScope.system,
+      );
+    }
+  }
+}
+
+class _ShortcutDisplay extends StatelessWidget {
+  final HotKey hotKey;
+  final bool isDark;
+  final VoidCallback onEdit;
+
+  const _ShortcutDisplay({required this.hotKey, required this.isDark, required this.onEdit});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            if (hotKey.modifiers != null)
+              ...hotKey.modifiers!.map((mod) {
+                String label = '';
+                switch (mod) {
+                  case HotKeyModifier.meta:
+                    label = 'Cmd/Win';
+                    break;
+                  case HotKeyModifier.shift:
+                    label = 'Shift';
+                    break;
+                  case HotKeyModifier.alt:
+                    label = 'Alt';
+                    break;
+                  case HotKeyModifier.control:
+                    label = 'Ctrl';
+                    break;
+                  default:
+                    label = mod.name.toUpperCase();
+                }
+                return Padding(
+                  padding: const EdgeInsets.only(right: 6.0),
+                  child: _KeyboardKey(label: label, isDark: isDark),
+                );
+              }),
+            _KeyboardKey(label: hotKey.key.keyLabel.toUpperCase(), isDark: isDark),
+          ],
+        ),
+        InkWell(
+          onTap: onEdit,
+          borderRadius: BorderRadius.circular(4),
+          child: const Padding(
+            padding: EdgeInsets.all(4.0),
+            child: Icon(Icons.edit, size: 16, color: Colors.grey),
+          ),
+        ),
+      ],
     );
   }
 }
