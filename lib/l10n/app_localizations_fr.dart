@@ -105,4 +105,46 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get saveChanges => 'Enregistrer les modifications';
+
+  @override
+  String get history => 'Historique';
+
+  @override
+  String get clearAll => 'Tout Effacer';
+
+  @override
+  String get transcriptionHistory => 'Historique des Transcriptions';
+
+  @override
+  String get noHistoryContent =>
+      'Aucun historique de transcription pour le moment.';
+
+  @override
+  String get originalAudio => 'Audio Original';
+
+  @override
+  String get processedOutput => 'Sortie Traitée';
+
+  @override
+  String get copiedOriginal => 'Original Copié';
+
+  @override
+  String get copiedWhisper =>
+      'Transcription Whisper copiée dans le presse-papiers.';
+
+  @override
+  String get copiedProcessed => 'Traité Copié';
+
+  @override
+  String get copiedProcessedMsg => 'Texte traité copié dans le presse-papiers.';
+
+  @override
+  String get clearHistoryTitle => 'Effacer l\'historique';
+
+  @override
+  String get clearHistoryMsg =>
+      'Êtes-vous sûr de vouloir supprimer tout l\'historique des transcriptions ? Cette action est irréversible.';
+
+  @override
+  String get cancel => 'Annuler';
 }

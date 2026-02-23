@@ -103,4 +103,43 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get saveChanges => '변경 사항 저장';
+
+  @override
+  String get history => '기록';
+
+  @override
+  String get clearAll => '모두 지우기';
+
+  @override
+  String get transcriptionHistory => '전사 기록';
+
+  @override
+  String get noHistoryContent => '아직 전사 기록이 없습니다.';
+
+  @override
+  String get originalAudio => '원본 오디오';
+
+  @override
+  String get processedOutput => '처리된 출력';
+
+  @override
+  String get copiedOriginal => '원본 복사됨';
+
+  @override
+  String get copiedWhisper => 'Whisper 전사가 클립보드에 복사되었습니다.';
+
+  @override
+  String get copiedProcessed => '처리됨 복사됨';
+
+  @override
+  String get copiedProcessedMsg => '처리된 텍스트가 클립보드에 복사되었습니다.';
+
+  @override
+  String get clearHistoryTitle => '기록 지우기';
+
+  @override
+  String get clearHistoryMsg => '모든 전사 기록을 삭제하시겠습니까? 이 작업은 실행 취소할 수 없습니다.';
+
+  @override
+  String get cancel => '취소';
 }

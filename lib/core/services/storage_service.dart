@@ -1,5 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class StorageService {
   late final FlutterSecureStorage _secureStorage;
@@ -27,7 +28,24 @@ class StorageService {
     return await _secureStorage.read(key: 'groq_api_key');
   }
 
-  // --- Shared Preferences (Settings) ---
+  // --- Shared Preferences (Settings & History) ---
+  List<HistoryItem> getHistory() {
+    final jsonStr = _prefs.getString('transcription_history');
+    if (jsonStr == null || jsonStr.isEmpty) return [];
+    try {
+      final List<dynamic> listKeys = jsonDecode(jsonStr);
+      return listKeys.map((e) => HistoryItem.fromJson(e)).toList()
+        ..sort((a, b) => b.timestamp.compareTo(a.timestamp)); // Newest first
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<void> saveHistory(List<HistoryItem> history) async {
+    final jsonList = history.map((e) => e.toJson()).toList();
+    await _prefs.setString('transcription_history', jsonEncode(jsonList));
+  }
+
   String get llmModel => _prefs.getString('llm_model') ?? 'moonshotai/kimi-k2-instruct-0905';
   Future<void> setLlmModel(String model) async => await _prefs.setString('llm_model', model);
 
@@ -46,3 +64,36 @@ class StorageService {
   String get globalShortcut => _prefs.getString('global_shortcut') ?? 'Meta+Shift+Space';
   Future<void> setGlobalShortcut(String shortcut) async => await _prefs.setString('global_shortcut', shortcut);
 }
+
+class HistoryItem {
+  final String id;
+  final DateTime timestamp;
+  final String originalText;
+  final String finalText;
+
+  HistoryItem({
+    required this.id,
+    required this.timestamp,
+    required this.originalText,
+    required this.finalText,
+  });
+
+  factory HistoryItem.fromJson(Map<String, dynamic> json) {
+    return HistoryItem(
+      id: json['id'] as String,
+      timestamp: DateTime.parse(json['timestamp'] as String),
+      originalText: json['originalText'] as String,
+      finalText: json['finalText'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'timestamp': timestamp.toIso8601String(),
+      'originalText': originalText,
+      'finalText': finalText,
+    };
+  }
+}
+

@@ -104,4 +104,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saveChanges => 'Save Changes';
+
+  @override
+  String get history => 'History';
+
+  @override
+  String get clearAll => 'Clear All';
+
+  @override
+  String get transcriptionHistory => 'Transcription History';
+
+  @override
+  String get noHistoryContent => 'No transcription history yet.';
+
+  @override
+  String get originalAudio => 'Original Audio';
+
+  @override
+  String get processedOutput => 'Processed Output';
+
+  @override
+  String get copiedOriginal => 'Copied Original';
+
+  @override
+  String get copiedWhisper => 'Whisper transcription copied to clipboard.';
+
+  @override
+  String get copiedProcessed => 'Copied Processed';
+
+  @override
+  String get copiedProcessedMsg => 'Processed text copied to clipboard.';
+
+  @override
+  String get clearHistoryTitle => 'Clear History';
+
+  @override
+  String get clearHistoryMsg =>
+      'Are you sure you want to delete all transcription history? This action cannot be undone.';
+
+  @override
+  String get cancel => 'Cancel';
 }

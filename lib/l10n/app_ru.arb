@@ -31,5 +31,18 @@
   "toggleRecording": "Переключить запись",
   "fillActiveField": "Заполнить активное поле",
   "settingsSaved": "Настройки сохранены автоматически.",
-  "saveChanges": "Сохранить изменения"
+  "saveChanges": "Сохранить изменения",
+  "history": "История",
+  "clearAll": "Очистить все",
+  "transcriptionHistory": "История транскрипций",
+  "noHistoryContent": "Пока нет истории транскрипций.",
+  "originalAudio": "Оригинальное аудио",
+  "processedOutput": "Обработанный вывод",
+  "copiedOriginal": "Оригинал скопирован",
+  "copiedWhisper": "Транскрипция Whisper скопирована в буфер обмена.",
+  "copiedProcessed": "Обработанный текст скопирован",
+  "copiedProcessedMsg": "Обработанный текст скопирован в буфер обмена.",
+  "clearHistoryTitle": "Очистить историю",
+  "clearHistoryMsg": "Вы уверены, что хотите удалить всю историю транскрипций? Это действие нельзя отменить.",
+  "cancel": "Отмена"
 }

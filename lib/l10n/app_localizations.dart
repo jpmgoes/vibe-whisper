@@ -307,6 +307,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save Changes'**
   String get saveChanges;
+
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
+  /// No description provided for @clearAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear All'**
+  String get clearAll;
+
+  /// No description provided for @transcriptionHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcription History'**
+  String get transcriptionHistory;
+
+  /// No description provided for @noHistoryContent.
+  ///
+  /// In en, this message translates to:
+  /// **'No transcription history yet.'**
+  String get noHistoryContent;
+
+  /// No description provided for @originalAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Original Audio'**
+  String get originalAudio;
+
+  /// No description provided for @processedOutput.
+  ///
+  /// In en, this message translates to:
+  /// **'Processed Output'**
+  String get processedOutput;
+
+  /// No description provided for @copiedOriginal.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied Original'**
+  String get copiedOriginal;
+
+  /// No description provided for @copiedWhisper.
+  ///
+  /// In en, this message translates to:
+  /// **'Whisper transcription copied to clipboard.'**
+  String get copiedWhisper;
+
+  /// No description provided for @copiedProcessed.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied Processed'**
+  String get copiedProcessed;
+
+  /// No description provided for @copiedProcessedMsg.
+  ///
+  /// In en, this message translates to:
+  /// **'Processed text copied to clipboard.'**
+  String get copiedProcessedMsg;
+
+  /// No description provided for @clearHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear History'**
+  String get clearHistoryTitle;
+
+  /// No description provided for @clearHistoryMsg.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete all transcription history? This action cannot be undone.'**
+  String get clearHistoryMsg;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
 }
 
 class _AppLocalizationsDelegate

@@ -31,5 +31,18 @@
   "toggleRecording": "録音の切り替え",
   "fillActiveField": "アクティブなフィールドに入力",
   "settingsSaved": "設定が自動的に保存されました。",
-  "saveChanges": "変更を保存"
+  "saveChanges": "変更を保存",
+  "history": "履歴",
+  "clearAll": "すべてクリア",
+  "transcriptionHistory": "文字起こし履歴",
+  "noHistoryContent": "文字起こし履歴はまだありません。",
+  "originalAudio": "オリジナルオーディオ",
+  "processedOutput": "処理済み出力",
+  "copiedOriginal": "オリジナルをコピー",
+  "copiedWhisper": "Whisperの文字起こしをクリップボードにコピーしました。",
+  "copiedProcessed": "処理済みをコピー",
+  "copiedProcessedMsg": "処理済みのテキストをクリップボードにコピーしました。",
+  "clearHistoryTitle": "履歴をクリア",
+  "clearHistoryMsg": "文字起こし履歴をすべて削除してもよろしいですか？この操作は元に戻せません。",
+  "cancel": "キャンセル"
 }

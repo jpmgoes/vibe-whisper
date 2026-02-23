@@ -31,5 +31,18 @@
   "toggleRecording": "Attiva/Disattiva registrazione",
   "fillActiveField": "Riempi il campo attivo",
   "settingsSaved": "Impostazioni salvate automaticamente.",
-  "saveChanges": "Salva modifiche"
+  "saveChanges": "Salva modifiche",
+  "history": "Cronologia",
+  "clearAll": "Cancella Tutto",
+  "transcriptionHistory": "Cronologia Trascrizioni",
+  "noHistoryContent": "Nessuna cronologia di trascrizione ancora.",
+  "originalAudio": "Audio Originale",
+  "processedOutput": "Output Elaborato",
+  "copiedOriginal": "Originale Copiato",
+  "copiedWhisper": "Trascrizione Whisper copiata negli appunti.",
+  "copiedProcessed": "Elaborato Copiato",
+  "copiedProcessedMsg": "Testo elaborato copiato negli appunti.",
+  "clearHistoryTitle": "Cancella Cronologia",
+  "clearHistoryMsg": "Sei sicuro di voler eliminare tutta la cronologia delle trascrizioni? Questa azione non può essere annullata.",
+  "cancel": "Annulla"
 }

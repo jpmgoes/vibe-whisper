@@ -31,5 +31,18 @@
   "toggleRecording": "Toggle Recording",
   "fillActiveField": "Fill active field",
   "settingsSaved": "Settings saved automatically.",
-  "saveChanges": "Save Changes"
+  "saveChanges": "Save Changes",
+  "history": "History",
+  "clearAll": "Clear All",
+  "transcriptionHistory": "Transcription History",
+  "noHistoryContent": "No transcription history yet.",
+  "originalAudio": "Original Audio",
+  "processedOutput": "Processed Output",
+  "copiedOriginal": "Copied Original",
+  "copiedWhisper": "Whisper transcription copied to clipboard.",
+  "copiedProcessed": "Copied Processed",
+  "copiedProcessedMsg": "Processed text copied to clipboard.",
+  "clearHistoryTitle": "Clear History",
+  "clearHistoryMsg": "Are you sure you want to delete all transcription history? This action cannot be undone.",
+  "cancel": "Cancel"
 }

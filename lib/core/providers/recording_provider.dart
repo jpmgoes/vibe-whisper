@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:local_notifier/local_notifier.dart';
 import 'dart:async';
 import 'package:record/record.dart';
+import 'package:uuid/uuid.dart';
 import '../services/audio_service.dart';
+import '../services/storage_service.dart';
 import '../services/groq_service.dart';
 import '../services/clipboard_service.dart';
 import '../services/audio_player_service.dart';
@@ -125,6 +127,15 @@ class RecordingProvider with ChangeNotifier {
       // 3. Clipboard copy
       debugPrint('[RecordingProvider] Copying to clipboard...');
       await _clipboardService.copyToClipboard(cleanedText);
+
+      // Save to history
+      final historyItem = HistoryItem(
+        id: const Uuid().v4(),
+        timestamp: DateTime.now(),
+        originalText: transcription,
+        finalText: cleanedText,
+      );
+      await _settings.addHistoryRecord(historyItem);
 
       _lastResult = cleanedText;
       _state = RecordingState.idle;

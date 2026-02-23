@@ -31,5 +31,18 @@
   "toggleRecording": "切换录音",
   "fillActiveField": "填充活动字段",
   "settingsSaved": "设置已自动保存。",
-  "saveChanges": "保存更改"
+  "saveChanges": "保存更改",
+  "history": "历史记录",
+  "clearAll": "清除全部",
+  "transcriptionHistory": "转录历史记录",
+  "noHistoryContent": "暂无转录历史记录。",
+  "originalAudio": "原始音频",
+  "processedOutput": "处理后的输出",
+  "copiedOriginal": "已复制原文",
+  "copiedWhisper": "Whisper 转录已复制到剪贴板。",
+  "copiedProcessed": "已复制处理结果",
+  "copiedProcessedMsg": "处理后的文本已复制到剪贴板。",
+  "clearHistoryTitle": "清除历史记录",
+  "clearHistoryMsg": "您确定要删除所有转录历史记录吗？此操作无法撤销。",
+  "cancel": "取消"
 }

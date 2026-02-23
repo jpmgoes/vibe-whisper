@@ -104,4 +104,44 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get saveChanges => 'حفظ التغييرات';
+
+  @override
+  String get history => 'السجل';
+
+  @override
+  String get clearAll => 'مسح الكل';
+
+  @override
+  String get transcriptionHistory => 'سجل النسخ';
+
+  @override
+  String get noHistoryContent => 'لا يوجد سجل نسخ بعد.';
+
+  @override
+  String get originalAudio => 'الصوت الأصلي';
+
+  @override
+  String get processedOutput => 'المخرجات المعالجة';
+
+  @override
+  String get copiedOriginal => 'تم نسخ الأصل';
+
+  @override
+  String get copiedWhisper => 'تم نسخ نسخ Whisper إلى الحافظة.';
+
+  @override
+  String get copiedProcessed => 'تم نسخ المعالج';
+
+  @override
+  String get copiedProcessedMsg => 'تم نسخ النص المعالج إلى الحافظة.';
+
+  @override
+  String get clearHistoryTitle => 'مسح السجل';
+
+  @override
+  String get clearHistoryMsg =>
+      'هل أنت متأكد أنك تريد حذف كل سجل النسخ؟ لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get cancel => 'إلغاء';
 }

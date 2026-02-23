@@ -105,4 +105,46 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get saveChanges => 'Сохранить изменения';
+
+  @override
+  String get history => 'История';
+
+  @override
+  String get clearAll => 'Очистить все';
+
+  @override
+  String get transcriptionHistory => 'История транскрипций';
+
+  @override
+  String get noHistoryContent => 'Пока нет истории транскрипций.';
+
+  @override
+  String get originalAudio => 'Оригинальное аудио';
+
+  @override
+  String get processedOutput => 'Обработанный вывод';
+
+  @override
+  String get copiedOriginal => 'Оригинал скопирован';
+
+  @override
+  String get copiedWhisper =>
+      'Транскрипция Whisper скопирована в буфер обмена.';
+
+  @override
+  String get copiedProcessed => 'Обработанный текст скопирован';
+
+  @override
+  String get copiedProcessedMsg =>
+      'Обработанный текст скопирован в буфер обмена.';
+
+  @override
+  String get clearHistoryTitle => 'Очистить историю';
+
+  @override
+  String get clearHistoryMsg =>
+      'Вы уверены, что хотите удалить всю историю транскрипций? Это действие нельзя отменить.';
+
+  @override
+  String get cancel => 'Отмена';
 }

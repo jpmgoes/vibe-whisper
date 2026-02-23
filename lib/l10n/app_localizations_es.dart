@@ -105,4 +105,45 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get saveChanges => 'Guardar Cambios';
+
+  @override
+  String get history => 'Historial';
+
+  @override
+  String get clearAll => 'Borrar Todo';
+
+  @override
+  String get transcriptionHistory => 'Historial de Transcripciones';
+
+  @override
+  String get noHistoryContent => 'Aún no hay historial de transcripciones.';
+
+  @override
+  String get originalAudio => 'Audio Original';
+
+  @override
+  String get processedOutput => 'Salida Procesada';
+
+  @override
+  String get copiedOriginal => 'Original Copiado';
+
+  @override
+  String get copiedWhisper =>
+      'Transcripción de Whisper copiada al portapapeles.';
+
+  @override
+  String get copiedProcessed => 'Procesado Copiado';
+
+  @override
+  String get copiedProcessedMsg => 'Texto procesado copiado al portapapeles.';
+
+  @override
+  String get clearHistoryTitle => 'Borrar Historial';
+
+  @override
+  String get clearHistoryMsg =>
+      '¿Está seguro de que desea eliminar todo el historial de transcripciones? Esta acción no se puede deshacer.';
+
+  @override
+  String get cancel => 'Cancelar';
 }

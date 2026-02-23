@@ -20,6 +20,10 @@ class SystemTrayService with TrayListener {
     Menu menu = Menu(
       items: [
         MenuItem(
+          key: 'history',
+          label: 'History',
+        ),
+        MenuItem(
           key: 'settings',
           label: 'Settings',
         ),
@@ -46,14 +50,16 @@ class SystemTrayService with TrayListener {
 
   @override
   void onTrayMenuItemClick(MenuItem menuItem) async {
-    if (menuItem.key == 'settings') {
-      await _openSettings();
+    if (menuItem.key == 'history') {
+      await _openWindow('/history');
+    } else if (menuItem.key == 'settings') {
+      await _openWindow('/settings');
     } else if (menuItem.key == 'exit') {
-      await windowManager.destroy(); // Properly kill the app
+      await windowManager.destroy(); // properly kill the app
     }
   }
 
-  Future<void> _openSettings() async {
+  Future<void> _openWindow(String route) async {
     await windowManager.setTitleBarStyle(TitleBarStyle.hidden, windowButtonVisibility: true);
     await windowManager.setHasShadow(true);
     await windowManager.setIgnoreMouseEvents(false);
@@ -62,7 +68,7 @@ class SystemTrayService with TrayListener {
     await windowManager.setAlwaysOnTop(false);
     await windowManager.show();
     await windowManager.focus();
-    router.go('/settings');
+    router.go(route);
   }
 
   void dispose() {

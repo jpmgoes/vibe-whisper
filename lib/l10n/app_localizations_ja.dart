@@ -103,4 +103,43 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get saveChanges => '変更を保存';
+
+  @override
+  String get history => '履歴';
+
+  @override
+  String get clearAll => 'すべてクリア';
+
+  @override
+  String get transcriptionHistory => '文字起こし履歴';
+
+  @override
+  String get noHistoryContent => '文字起こし履歴はまだありません。';
+
+  @override
+  String get originalAudio => 'オリジナルオーディオ';
+
+  @override
+  String get processedOutput => '処理済み出力';
+
+  @override
+  String get copiedOriginal => 'オリジナルをコピー';
+
+  @override
+  String get copiedWhisper => 'Whisperの文字起こしをクリップボードにコピーしました。';
+
+  @override
+  String get copiedProcessed => '処理済みをコピー';
+
+  @override
+  String get copiedProcessedMsg => '処理済みのテキストをクリップボードにコピーしました。';
+
+  @override
+  String get clearHistoryTitle => '履歴をクリア';
+
+  @override
+  String get clearHistoryMsg => '文字起こし履歴をすべて削除してもよろしいですか？この操作は元に戻せません。';
+
+  @override
+  String get cancel => 'キャンセル';
 }

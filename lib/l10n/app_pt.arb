@@ -31,5 +31,18 @@
   "toggleRecording": "Gravar / Parar",
   "fillActiveField": "Preencher campo ativo",
   "settingsSaved": "Configurações salvas automaticamente.",
-  "saveChanges": "Salvar Alterações"
+  "saveChanges": "Salvar Alterações",
+  "history": "Histórico",
+  "clearAll": "Limpar Tudo",
+  "transcriptionHistory": "Histórico de Transcrições",
+  "noHistoryContent": "Nenhum histórico de transcrição ainda.",
+  "originalAudio": "Áudio Original",
+  "processedOutput": "Saída Processada",
+  "copiedOriginal": "Original Copiado",
+  "copiedWhisper": "Transcrição do Whisper copiada para a área de transferência.",
+  "copiedProcessed": "Processado Copiado",
+  "copiedProcessedMsg": "Texto processado copiado para a área de transferência.",
+  "clearHistoryTitle": "Limpar Histórico",
+  "clearHistoryMsg": "Tem certeza de que deseja excluir todo o histórico de transcrições? Esta ação não pode ser desfeita.",
+  "cancel": "Cancelar"
 }

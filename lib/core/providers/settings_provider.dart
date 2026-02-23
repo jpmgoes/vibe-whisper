@@ -18,6 +18,7 @@ class SettingsProvider with ChangeNotifier {
 
   List<String> _availableLlmModels = [];
   List<String> _availableWhisperModels = [];
+  List<HistoryItem> _history = [];
 
   String? get groqApiKey => _groqApiKey;
   String get llmModel => _llmModel;
@@ -28,6 +29,7 @@ class SettingsProvider with ChangeNotifier {
   String get globalShortcut => _globalShortcut;
   List<String> get availableLlmModels => _availableLlmModels;
   List<String> get availableWhisperModels => _availableWhisperModels;
+  List<HistoryItem> get history => _history;
 
   Future<void> init() async {
     _groqApiKey = await _storageService.getGroqApiKey();
@@ -37,6 +39,7 @@ class SettingsProvider with ChangeNotifier {
     _appLanguage = _storageService.appLanguage;
     _themeMode = _storageService.themeMode;
     _globalShortcut = _storageService.globalShortcut;
+    _history = _storageService.getHistory();
     notifyListeners();
     await fetchModels();
   }
@@ -105,6 +108,24 @@ class SettingsProvider with ChangeNotifier {
   Future<void> setGlobalShortcut(String shortcut) async {
     _globalShortcut = shortcut;
     await _storageService.setGlobalShortcut(shortcut);
+    notifyListeners();
+  }
+
+  Future<void> addHistoryRecord(HistoryItem item) async {
+    _history.insert(0, item);
+    await _storageService.saveHistory(_history);
+    notifyListeners();
+  }
+
+  Future<void> removeHistoryRecord(String id) async {
+    _history.removeWhere((item) => item.id == id);
+    await _storageService.saveHistory(_history);
+    notifyListeners();
+  }
+
+  Future<void> clearHistory() async {
+    _history.clear();
+    await _storageService.saveHistory(_history);
     notifyListeners();
   }
 }

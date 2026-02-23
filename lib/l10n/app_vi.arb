@@ -31,5 +31,18 @@
   "toggleRecording": "Bật/Tắt Ghi âm",
   "fillActiveField": "Điền vào trường hoạt động",
   "settingsSaved": "Cài đặt đã tự động lưu.",
-  "saveChanges": "Lưu thay đổi"
+  "saveChanges": "Lưu thay đổi",
+  "history": "Lịch sử",
+  "clearAll": "Xóa tất cả",
+  "transcriptionHistory": "Lịch sử phiên âm",
+  "noHistoryContent": "Chưa có lịch sử phiên âm nào.",
+  "originalAudio": "Âm thanh Gốc",
+  "processedOutput": "Đầu ra đã xử lý",
+  "copiedOriginal": "Đã sao chép bản gốc",
+  "copiedWhisper": "Phiên âm Whisper đã được sao chép vào khay nhớ tạm.",
+  "copiedProcessed": "Đã sao chép phần xử lý",
+  "copiedProcessedMsg": "Văn bản đã xử lý được sao chép vào khay nhớ tạm.",
+  "clearHistoryTitle": "Xóa lịch sử",
+  "clearHistoryMsg": "Bạn có chắc chắn muốn xóa tất cả lịch sử phiên âm không? Không thể hoàn tác hành động này.",
+  "cancel": "Hủy"
 }

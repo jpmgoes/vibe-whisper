@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/providers/settings_provider.dart';
 import 'screens/overlay_screen.dart';
 import 'screens/settings_screen.dart';
+import 'screens/history_screen.dart';
 import 'screens/onboarding_screen.dart';
 
 class AppRouter {
@@ -21,6 +22,10 @@ class AppRouter {
         GoRoute(
           path: '/settings',
           builder: (context, state) => const SettingsScreen(),
+        ),
+        GoRoute(
+          path: '/history',
+          builder: (context, state) => const HistoryScreen(),
         ),
         GoRoute(
           path: '/overlay',

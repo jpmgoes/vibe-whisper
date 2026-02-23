@@ -105,4 +105,46 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get saveChanges => 'Salvar Alterações';
+
+  @override
+  String get history => 'Histórico';
+
+  @override
+  String get clearAll => 'Limpar Tudo';
+
+  @override
+  String get transcriptionHistory => 'Histórico de Transcrições';
+
+  @override
+  String get noHistoryContent => 'Nenhum histórico de transcrição ainda.';
+
+  @override
+  String get originalAudio => 'Áudio Original';
+
+  @override
+  String get processedOutput => 'Saída Processada';
+
+  @override
+  String get copiedOriginal => 'Original Copiado';
+
+  @override
+  String get copiedWhisper =>
+      'Transcrição do Whisper copiada para a área de transferência.';
+
+  @override
+  String get copiedProcessed => 'Processado Copiado';
+
+  @override
+  String get copiedProcessedMsg =>
+      'Texto processado copiado para a área de transferência.';
+
+  @override
+  String get clearHistoryTitle => 'Limpar Histórico';
+
+  @override
+  String get clearHistoryMsg =>
+      'Tem certeza de que deseja excluir todo o histórico de transcrições? Esta ação não pode ser desfeita.';
+
+  @override
+  String get cancel => 'Cancelar';
 }

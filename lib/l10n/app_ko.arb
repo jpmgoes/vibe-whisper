@@ -31,5 +31,18 @@
   "toggleRecording": "녹음 전환",
   "fillActiveField": "활성 필드 채우기",
   "settingsSaved": "설정이 자동으로 저장되었습니다.",
-  "saveChanges": "변경 사항 저장"
+  "saveChanges": "변경 사항 저장",
+  "history": "기록",
+  "clearAll": "모두 지우기",
+  "transcriptionHistory": "전사 기록",
+  "noHistoryContent": "아직 전사 기록이 없습니다.",
+  "originalAudio": "원본 오디오",
+  "processedOutput": "처리된 출력",
+  "copiedOriginal": "원본 복사됨",
+  "copiedWhisper": "Whisper 전사가 클립보드에 복사되었습니다.",
+  "copiedProcessed": "처리됨 복사됨",
+  "copiedProcessedMsg": "처리된 텍스트가 클립보드에 복사되었습니다.",
+  "clearHistoryTitle": "기록 지우기",
+  "clearHistoryMsg": "모든 전사 기록을 삭제하시겠습니까? 이 작업은 실행 취소할 수 없습니다.",
+  "cancel": "취소"
 }

@@ -106,4 +106,46 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get saveChanges => 'Lưu thay đổi';
+
+  @override
+  String get history => 'Lịch sử';
+
+  @override
+  String get clearAll => 'Xóa tất cả';
+
+  @override
+  String get transcriptionHistory => 'Lịch sử phiên âm';
+
+  @override
+  String get noHistoryContent => 'Chưa có lịch sử phiên âm nào.';
+
+  @override
+  String get originalAudio => 'Âm thanh Gốc';
+
+  @override
+  String get processedOutput => 'Đầu ra đã xử lý';
+
+  @override
+  String get copiedOriginal => 'Đã sao chép bản gốc';
+
+  @override
+  String get copiedWhisper =>
+      'Phiên âm Whisper đã được sao chép vào khay nhớ tạm.';
+
+  @override
+  String get copiedProcessed => 'Đã sao chép phần xử lý';
+
+  @override
+  String get copiedProcessedMsg =>
+      'Văn bản đã xử lý được sao chép vào khay nhớ tạm.';
+
+  @override
+  String get clearHistoryTitle => 'Xóa lịch sử';
+
+  @override
+  String get clearHistoryMsg =>
+      'Bạn có chắc chắn muốn xóa tất cả lịch sử phiên âm không? Không thể hoàn tác hành động này.';
+
+  @override
+  String get cancel => 'Hủy';
 }

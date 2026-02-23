@@ -31,5 +31,18 @@
   "toggleRecording": "تبديل التسجيل",
   "fillActiveField": "تعبئة الحقل النشط",
   "settingsSaved": "تم حفظ الإعدادات تلقائيًا.",
-  "saveChanges": "حفظ التغييرات"
+  "saveChanges": "حفظ التغييرات",
+  "history": "السجل",
+  "clearAll": "مسح الكل",
+  "transcriptionHistory": "سجل النسخ",
+  "noHistoryContent": "لا يوجد سجل نسخ بعد.",
+  "originalAudio": "الصوت الأصلي",
+  "processedOutput": "المخرجات المعالجة",
+  "copiedOriginal": "تم نسخ الأصل",
+  "copiedWhisper": "تم نسخ نسخ Whisper إلى الحافظة.",
+  "copiedProcessed": "تم نسخ المعالج",
+  "copiedProcessedMsg": "تم نسخ النص المعالج إلى الحافظة.",
+  "clearHistoryTitle": "مسح السجل",
+  "clearHistoryMsg": "هل أنت متأكد أنك تريد حذف كل سجل النسخ؟ لا يمكن التراجع عن هذا الإجراء.",
+  "cancel": "إلغاء"
 }

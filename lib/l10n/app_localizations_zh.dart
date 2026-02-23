@@ -103,4 +103,43 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get saveChanges => '保存更改';
+
+  @override
+  String get history => '历史记录';
+
+  @override
+  String get clearAll => '清除全部';
+
+  @override
+  String get transcriptionHistory => '转录历史记录';
+
+  @override
+  String get noHistoryContent => '暂无转录历史记录。';
+
+  @override
+  String get originalAudio => '原始音频';
+
+  @override
+  String get processedOutput => '处理后的输出';
+
+  @override
+  String get copiedOriginal => '已复制原文';
+
+  @override
+  String get copiedWhisper => 'Whisper 转录已复制到剪贴板。';
+
+  @override
+  String get copiedProcessed => '已复制处理结果';
+
+  @override
+  String get copiedProcessedMsg => '处理后的文本已复制到剪贴板。';
+
+  @override
+  String get clearHistoryTitle => '清除历史记录';
+
+  @override
+  String get clearHistoryMsg => '您确定要删除所有转录历史记录吗？此操作无法撤销。';
+
+  @override
+  String get cancel => '取消';
 }
