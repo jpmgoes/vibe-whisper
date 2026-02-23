@@ -47,7 +47,7 @@ void main() async {
   launchAtStartup.setup(
     appName: 'VibeWhisper',
     appPath: Platform.resolvedExecutable,
-    packageName: 'com.example.vibeWhisper',
+    packageName: 'com.vibewhisper',
   );
   await launchAtStartup.enable();
 

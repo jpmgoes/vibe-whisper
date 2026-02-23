@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:own_whisper/main.dart';
+import 'package:vibe_whisper/main.dart';
 
 import 'package:go_router/go_router.dart';
 
