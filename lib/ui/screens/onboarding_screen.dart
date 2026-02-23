@@ -167,7 +167,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             filled: true,
                             fillColor: isDark ? const Color(0xFF111a22) : Colors.grey.shade50,
                           ),
-                          value: settings.appLanguage,
+                          initialValue: settings.appLanguage,
                           items: const [
                             DropdownMenuItem(value: 'en', child: Text('English')),
                             DropdownMenuItem(value: 'pt', child: Text('Português')),

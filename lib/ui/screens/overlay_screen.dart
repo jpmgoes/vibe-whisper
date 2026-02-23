@@ -4,7 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/providers/recording_provider.dart';
 
 class OverlayScreen extends StatelessWidget {
-  const OverlayScreen({Key? key}) : super(key: key);
+  const OverlayScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +23,9 @@ class OverlayScreen extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               decoration: BoxDecoration(
-                color: Colors.red.shade900.withOpacity(0.9),
+                color: Colors.red.shade900.withValues(alpha: 0.9),
                 borderRadius: BorderRadius.circular(30),
-                boxShadow: [BoxShadow(color: Colors.red.withOpacity(0.3), blurRadius: 20)],
+                boxShadow: [BoxShadow(color: Colors.red.withValues(alpha: 0.3), blurRadius: 20)],
               ),
               child: const Text('Error. Try again.', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
             ).animate().fadeIn().scale().then(delay: 2.seconds).fadeOut(),
@@ -49,7 +49,7 @@ class OverlayScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: const Color(0xFF101922),
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: Colors.white.withOpacity(0.1)),
+                  border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
                   boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 10, offset: Offset(0, 4))],
                 ),
                 child: Row(

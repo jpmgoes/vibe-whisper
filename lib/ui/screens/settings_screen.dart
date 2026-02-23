@@ -5,7 +5,7 @@ import '../../l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -36,7 +36,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final isDark = theme.brightness == Brightness.dark;
 
     final borderColor = isDark ? const Color(0xFF3f3f46) : const Color(0xFFe5e7eb);
-    final cardBgColor = isDark ? const Color(0xFF18181b).withOpacity(0.5) : const Color(0xFFf9fafb);
+    final cardBgColor = isDark ? const Color(0xFF18181b).withValues(alpha: 0.5) : const Color(0xFFf9fafb);
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -150,7 +150,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Text(l10n.llmModel, style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)),
                     const SizedBox(height: 6),
                     DropdownButtonFormField<String>(
-                      value: settings.availableLlmModels.contains(settings.llmModel) ? settings.llmModel : (settings.availableLlmModels.isNotEmpty ? settings.availableLlmModels.first : null),
+                      initialValue: settings.availableLlmModels.contains(settings.llmModel) ? settings.llmModel : (settings.availableLlmModels.isNotEmpty ? settings.availableLlmModels.first : null),
                       items: settings.availableLlmModels.map((m) => DropdownMenuItem(value: m, child: Text(m, style: const TextStyle(fontSize: 13)))).toList(),
                       decoration: InputDecoration(
                         filled: true,
@@ -169,7 +169,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Text(l10n.whisperModel, style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)),
                     const SizedBox(height: 6),
                     DropdownButtonFormField<String>(
-                      value: settings.availableWhisperModels.contains(settings.whisperModel) ? settings.whisperModel : (settings.availableWhisperModels.isNotEmpty ? settings.availableWhisperModels.first : null),
+                      initialValue: settings.availableWhisperModels.contains(settings.whisperModel) ? settings.whisperModel : (settings.availableWhisperModels.isNotEmpty ? settings.availableWhisperModels.first : null),
                       items: settings.availableWhisperModels.map((m) => DropdownMenuItem(value: m, child: Text(m, style: const TextStyle(fontSize: 13)))).toList(),
                       decoration: InputDecoration(
                         filled: true,
@@ -263,7 +263,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 Switch(
                                   value: settings.autoPaste,
                                   onChanged: (val) => settings.setAutoPaste(val),
-                                  activeColor: theme.colorScheme.primary,
+                                  activeThumbColor: theme.colorScheme.primary,
                                 ),
                               ],
                             )
@@ -281,7 +281,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             decoration: BoxDecoration(
-              color: isDark ? const Color(0xFF18181b).withOpacity(0.5) : Colors.grey.shade50,
+              color: isDark ? const Color(0xFF18181b).withValues(alpha: 0.5) : Colors.grey.shade50,
               border: Border(top: BorderSide(color: borderColor)),
             ),
             child: Row(

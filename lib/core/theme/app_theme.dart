@@ -19,8 +19,7 @@ class AppTheme {
       colorScheme: const ColorScheme.light(
         primary: primaryColor,
         secondary: primarySecondaryColor,
-        surface: lightSurface,
-        background: lightBackground,
+        surface: lightBackground,
       ),
       fontFamily: 'Inter',
       useMaterial3: true,
@@ -38,8 +37,7 @@ class AppTheme {
       colorScheme: const ColorScheme.dark(
         primary: primaryColor,
         secondary: primarySecondaryColor,
-        surface: darkSurface,
-        background: darkBackground,
+        surface: darkBackground,
       ),
       fontFamily: 'Inter',
       useMaterial3: true,

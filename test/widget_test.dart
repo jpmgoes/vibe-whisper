@@ -10,12 +10,11 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:own_whisper/main.dart';
 
-import 'package:own_whisper/main.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    final dummyRouter = GoRouter(routes: [GoRoute(path: '/', builder: (_, __) => const SizedBox())]);
+    final dummyRouter = GoRouter(routes: [GoRoute(path: '/', builder: (_, _) => const SizedBox())]);
     // Build our app and trigger a frame.
     await tester.pumpWidget(OwnWhisperApp(router: dummyRouter));
 

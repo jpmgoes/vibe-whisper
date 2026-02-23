@@ -19,8 +19,6 @@ class SettingsProvider with ChangeNotifier {
   List<String> _availableLlmModels = [];
   List<String> _availableWhisperModels = [];
 
-  bool _isInitialized = false;
-
   String? get groqApiKey => _groqApiKey;
   String get llmModel => _llmModel;
   String get whisperModel => _whisperModel;
@@ -39,7 +37,6 @@ class SettingsProvider with ChangeNotifier {
     _appLanguage = _storageService.appLanguage;
     _themeMode = _storageService.themeMode;
     _globalShortcut = _storageService.globalShortcut;
-    _isInitialized = true;
     notifyListeners();
     await fetchModels();
   }

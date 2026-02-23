@@ -143,7 +143,7 @@ void main() async {
 class OwnWhisperApp extends StatelessWidget {
   final GoRouter router;
   
-  const OwnWhisperApp({Key? key, required this.router}) : super(key: key);
+  const OwnWhisperApp({super.key, required this.router});
 
   @override
   Widget build(BuildContext context) {

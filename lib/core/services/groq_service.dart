@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
-import 'package:path/path.dart' as p;
 
 class GroqService {
   final http.Client _client = http.Client();
