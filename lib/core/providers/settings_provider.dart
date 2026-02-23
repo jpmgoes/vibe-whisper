@@ -11,7 +11,7 @@ class SettingsProvider with ChangeNotifier {
   String? _groqApiKey;
   String _llmModel = 'moonshotai/kimi-k2-instruct-0905';
   String _whisperModel = 'whisper-large-v3-turbo';
-  bool _autoPaste = false;
+  bool _autoPaste = true;
   String _appLanguage = 'en';
   String _themeMode = 'system';
   String _globalShortcut = 'Meta+Shift+Space';
