@@ -11,12 +11,10 @@ To install the application on your Mac, follow these instructions:
 
 ### Installation Steps
 
-1. **Locate the Installer** 
-   You can find the generated installer inside the `build` folder of this project:
-   `build/VibeWhisper-Installer.dmg`
+   You can find the generated installer inside the `macos/installer` folder of this project:
+   `macos/installer/install.dmg`
 
-2. **Mount the Image**
-   Double-click the `VibeWhisper-Installer.dmg` file to mount the disk image. A new window will appear showing the `VibeWhisper` application icon and an `Applications` folder shortcut.
+   Double-click the `install.dmg` file to mount the disk image. A new window will appear showing the `VibeWhisper` application icon, the custom visual background, and an `Applications` folder shortcut.
 
 3. **Install the Application**
    Drag and drop the **"VibeWhisper"** icon into the **"Applications"** folder shortcut right next to it.
@@ -42,10 +40,15 @@ If you made code changes and need to generate a fresh macOS build and installer,
 # 1. Generate the macOS release build
 flutter build macos --release
 
-# 2. Package it into a DMG
-mkdir -p build/installer
-cp -r build/macos/Build/Products/Release/VibeWhisper.app build/installer/
-ln -s /Applications build/installer/Applications
-hdiutil create -volname "VibeWhisper" -srcfolder build/installer -ov -format UDZO build/VibeWhisper-Installer.dmg
-rm -rf build/installer
+# 2. Package it into a DMG with a custom background
+# Ensure you have 'appdmg' installed globally: npm i -g appdmg
+cd macos/installer
+appdmg appdmg.json install.dmg
 ```
+
+**Note on Background Customization:**
+To modify the background of the DMG installer:
+1. Edit the vector graphic in `macos/installer/background.svg`.
+2. Convert the SVG to PNG using QuickLook's `qlmanage`: 
+   `qlmanage -t -s 600 -o . background.svg && mv background.svg.png background.png`
+3. Re-run the `appdmg` command above to generate a new `install.dmg` with the updated visuals.

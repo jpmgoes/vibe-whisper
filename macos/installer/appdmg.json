@@ -1,0 +1,16 @@
+{
+  "title": "VibeWhisper",
+  "icon": "../../macos/Runner/Assets.xcassets/AppIcon.appiconset/app_icon_1024.png",
+  "background": "background.png",
+  "format": "UDBZ",
+  "window": {
+    "size": {
+      "width": 600,
+      "height": 400
+    }
+  },
+  "contents": [
+    { "x": 150, "y": 200, "type": "file", "path": "../../build/macos/Build/Products/Release/VibeWhisper.app" },
+    { "x": 450, "y": 200, "type": "link", "path": "/Applications" }
+  ]
+}
