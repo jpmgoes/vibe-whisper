@@ -28,9 +28,19 @@ class StorageService {
     return await _secureStorage.read(key: 'groq_api_key');
   }
 
-  // --- Shared Preferences (Settings & History) ---
-  List<HistoryItem> getHistory() {
-    final jsonStr = _prefs.getString('transcription_history');
+  // --- History (Secure Storage) ---
+  Future<List<HistoryItem>> getHistory() async {
+    String? jsonStr = await _secureStorage.read(key: 'transcription_history');
+    
+    if (jsonStr == null) {
+      // Migrate from old plaintext SharedPreferences if necessary
+      jsonStr = _prefs.getString('transcription_history');
+      if (jsonStr != null && jsonStr.isNotEmpty) {
+        await _secureStorage.write(key: 'transcription_history', value: jsonStr);
+        await _prefs.remove('transcription_history');
+      }
+    }
+
     if (jsonStr == null || jsonStr.isEmpty) return [];
     try {
       final List<dynamic> listKeys = jsonDecode(jsonStr);
@@ -43,8 +53,10 @@ class StorageService {
 
   Future<void> saveHistory(List<HistoryItem> history) async {
     final jsonList = history.map((e) => e.toJson()).toList();
-    await _prefs.setString('transcription_history', jsonEncode(jsonList));
+    await _secureStorage.write(key: 'transcription_history', value: jsonEncode(jsonList));
   }
+
+  // --- Shared Preferences (Settings) ---
 
   String get llmModel => _prefs.getString('llm_model') ?? 'moonshotai/kimi-k2-instruct-0905';
   Future<void> setLlmModel(String model) async => await _prefs.setString('llm_model', model);

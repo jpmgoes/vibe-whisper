@@ -39,7 +39,7 @@ class SettingsProvider with ChangeNotifier {
     _appLanguage = _storageService.appLanguage;
     _themeMode = _storageService.themeMode;
     _globalShortcut = _storageService.globalShortcut;
-    _history = _storageService.getHistory();
+    _history = await _storageService.getHistory();
     notifyListeners();
     await fetchModels();
   }
