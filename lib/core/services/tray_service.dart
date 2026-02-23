@@ -24,6 +24,10 @@ class SystemTrayService with TrayListener {
           label: 'History',
         ),
         MenuItem(
+          key: 'snippets',
+          label: 'Snippets',
+        ),
+        MenuItem(
           key: 'settings',
           label: 'Settings',
         ),
@@ -52,6 +56,8 @@ class SystemTrayService with TrayListener {
   void onTrayMenuItemClick(MenuItem menuItem) async {
     if (menuItem.key == 'history') {
       await _openWindow('/history');
+    } else if (menuItem.key == 'snippets') {
+      await _openWindow('/snippets');
     } else if (menuItem.key == 'settings') {
       await _openWindow('/settings');
     } else if (menuItem.key == 'exit') {

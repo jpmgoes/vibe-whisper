@@ -20,6 +20,7 @@ class SettingsProvider with ChangeNotifier {
   List<String> _availableLlmModels = [];
   List<String> _availableWhisperModels = [];
   List<HistoryItem> _history = [];
+  List<SnippetItem> _snippets = [];
 
   String? get groqApiKey => _groqApiKey;
   String get llmModel => _llmModel;
@@ -32,6 +33,7 @@ class SettingsProvider with ChangeNotifier {
   List<String> get availableLlmModels => _availableLlmModels;
   List<String> get availableWhisperModels => _availableWhisperModels;
   List<HistoryItem> get history => _history;
+  List<SnippetItem> get snippets => _snippets;
 
   Future<void> init() async {
     _groqApiKey = await _storageService.getGroqApiKey();
@@ -43,6 +45,7 @@ class SettingsProvider with ChangeNotifier {
     _themeMode = _storageService.themeMode;
     _globalShortcut = _storageService.globalShortcut;
     _history = await _storageService.getHistory();
+    _snippets = await _storageService.getSnippets();
     notifyListeners();
     await fetchModels();
   }
@@ -142,6 +145,28 @@ class SettingsProvider with ChangeNotifier {
   Future<void> clearHistory() async {
     _history.clear();
     await _storageService.saveHistory(_history);
+    notifyListeners();
+  }
+
+  // --- Snippets ---
+  Future<void> addSnippet(SnippetItem item) async {
+    _snippets.add(item);
+    await _storageService.saveSnippets(_snippets);
+    notifyListeners();
+  }
+
+  Future<void> updateSnippet(SnippetItem updatedItem) async {
+    final index = _snippets.indexWhere((s) => s.id == updatedItem.id);
+    if (index != -1) {
+      _snippets[index] = updatedItem;
+      await _storageService.saveSnippets(_snippets);
+      notifyListeners();
+    }
+  }
+
+  Future<void> removeSnippet(String id) async {
+    _snippets.removeWhere((item) => item.id == id);
+    await _storageService.saveSnippets(_snippets);
     notifyListeners();
   }
 }

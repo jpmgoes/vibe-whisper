@@ -145,4 +145,25 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get intentModel => 'Intent Model (Router)';
+
+  @override
+  String get snippets => 'Voice Snippets';
+
+  @override
+  String get addSnippet => 'Add Snippet';
+
+  @override
+  String get editSnippet => 'Edit Snippet';
+
+  @override
+  String get newSnippet => 'New Snippet';
+
+  @override
+  String get snippetCommandLabel => 'Command/Key (e.g., \"my email\")';
+
+  @override
+  String get snippetValueLabel => 'Value to paste';
+
+  @override
+  String get noSnippetsYet => 'No snippets yet.';
 }

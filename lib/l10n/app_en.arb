@@ -45,5 +45,12 @@
   "clearHistoryTitle": "Clear History",
   "clearHistoryMsg": "Are you sure you want to delete all transcription history? This action cannot be undone.",
   "cancel": "Cancel",
-  "intentModel": "Intent Model (Router)"
+  "intentModel": "Intent Model (Router)",
+  "snippets": "Voice Snippets",
+  "addSnippet": "Add Snippet",
+  "editSnippet": "Edit Snippet",
+  "newSnippet": "New Snippet",
+  "snippetCommandLabel": "Command/Key (e.g., \"my email\")",
+  "snippetValueLabel": "Value to paste",
+  "noSnippetsYet": "No snippets yet."
 }

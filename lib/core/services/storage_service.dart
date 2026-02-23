@@ -78,6 +78,23 @@ class StorageService {
 
   String get globalShortcut => _prefs.getString('global_shortcut') ?? 'Meta+Shift+Space';
   Future<void> setGlobalShortcut(String shortcut) async => await _prefs.setString('global_shortcut', shortcut);
+
+  // --- Snippets (Secure Storage) ---
+  Future<List<SnippetItem>> getSnippets() async {
+    String? jsonStr = await _secureStorage.read(key: 'voice_snippets');
+    if (jsonStr == null || jsonStr.isEmpty) return [];
+    try {
+      final List<dynamic> listKeys = jsonDecode(jsonStr);
+      return listKeys.map((e) => SnippetItem.fromJson(e)).toList();
+    } catch (e) {
+      return [];
+    }
+  }
+
+  Future<void> saveSnippets(List<SnippetItem> snippets) async {
+    final jsonList = snippets.map((e) => e.toJson()).toList();
+    await _secureStorage.write(key: 'voice_snippets', value: jsonEncode(jsonList));
+  }
 }
 
 class HistoryItem {
@@ -108,6 +125,34 @@ class HistoryItem {
       'timestamp': timestamp.toIso8601String(),
       'originalText': originalText,
       'finalText': finalText,
+    };
+  }
+}
+
+class SnippetItem {
+  final String id;
+  final String key;
+  final String value;
+
+  SnippetItem({
+    required this.id,
+    required this.key,
+    required this.value,
+  });
+
+  factory SnippetItem.fromJson(Map<String, dynamic> json) {
+    return SnippetItem(
+      id: json['id'],
+      key: json['key'],
+      value: json['value'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'key': key,
+      'value': value,
     };
   }
 }

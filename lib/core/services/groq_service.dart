@@ -38,20 +38,32 @@ class GroqService {
   // ---------------------------------------------------------------------------
   // INTENT DETECTION
   // ---------------------------------------------------------------------------
-  Future<Map<String, dynamic>> determineIntent(String apiKey, String text, String intentModel) async {
+  Future<Map<String, dynamic>> determineIntent(String apiKey, String text, String intentModel, List<String> snippetKeys) async {
     final uri = Uri.parse('https://api.groq.com/openai/v1/chat/completions');
     debugPrint('[GroqService] Determine Intent Request URL: $uri');
+    
+    final keysStr = snippetKeys.isEmpty ? "none" : snippetKeys.join(", ");
 
     final bodyStr = jsonEncode({
       "model": intentModel,
       "temperature": 0.0,
-      "max_tokens": 100,
+      "max_tokens": 150,
       "top_p": 1,
       "response_format": {"type": "json_object"},
       "messages": [
         {
           "role": "system",
-          "content": "You are an intent router. Your job is to analyze transcriptions and output JSON. Determine if the user's spoken text starts with a command to translate the text (e.g. 'translate to english', 'traduza para espanhol', etc).\n\nOutput a JSON object with this exact schema:\n{\n  \"action\": \"translate\" | \"treat\",\n  \"target_language\": \"...\" (only if action is translate, otherwise null)\n}"
+          "content": "You are an intent router. Your job is to analyze transcriptions and output JSON.\n"
+                     "Actions:\n"
+                     "1. 'snippet': if the user's spoken text asks to type/insert a snippet that matches one of these existing keys: [$keysStr].\n"
+                     "2. 'translate': if the user's spoken text starts with a command to translate the text (e.g. 'translate to english').\n"
+                     "3. 'treat': if the user just spoke normally and wants the text cleaned.\n\n"
+                     "Output a JSON object with this exact schema:\n"
+                     "{\n"
+                     "  \"action\": \"snippet\" | \"translate\" | \"treat\",\n"
+                     "  \"target_language\": \"...\" (only if action is translate, otherwise null),\n"
+                     "  \"snippet_key\": \"...\" (only if action is snippet, otherwise null)\n"
+                     "}"
         },
         {
           "role": "user",

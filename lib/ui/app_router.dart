@@ -4,6 +4,7 @@ import '../../core/providers/settings_provider.dart';
 import 'screens/overlay_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/history_screen.dart';
+import 'screens/snippets_screen.dart';
 import 'screens/onboarding_screen.dart';
 
 class AppRouter {
@@ -26,6 +27,10 @@ class AppRouter {
         GoRoute(
           path: '/history',
           builder: (context, state) => const HistoryScreen(),
+        ),
+        GoRoute(
+          path: '/snippets',
+          builder: (context, state) => const SnippetsScreen(),
         ),
         GoRoute(
           path: '/overlay',

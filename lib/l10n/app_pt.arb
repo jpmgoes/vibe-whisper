@@ -45,5 +45,12 @@
   "clearHistoryTitle": "Limpar Histórico",
   "clearHistoryMsg": "Tem certeza de que deseja excluir todo o histórico de transcrições? Esta ação não pode ser desfeita.",
   "cancel": "Cancelar",
-  "intentModel": "Intent Model (Router)"
+  "intentModel": "Intent Model (Router)",
+  "snippets": "Snippets de Voz",
+  "addSnippet": "Adicionar Snippet",
+  "editSnippet": "Editar Snippet",
+  "newSnippet": "Novo Snippet",
+  "snippetCommandLabel": "Comando/Chave (ex: \"meu email\")",
+  "snippetValueLabel": "Valor para colar",
+  "noSnippetsYet": "Nenhum snippet ainda."
 }

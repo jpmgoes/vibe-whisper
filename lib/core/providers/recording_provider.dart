@@ -117,27 +117,47 @@ class RecordingProvider with ChangeNotifier {
 
       // 2. Intent Detection
       _state = RecordingState.processing;
-      debugPrint('[RecordingProvider] Checking user intent for translation...');
+      debugPrint('[RecordingProvider] Checking user intent for translation/snippet...');
+      final snippetKeys = _settings.snippets.map((s) => s.key).toList();
       final intentData = await _groqService.determineIntent(
         _settings.groqApiKey!, 
         transcription,
-        _settings.intentModel
+        _settings.intentModel,
+        snippetKeys,
       );
       
       final action = intentData['action'] as String;
       final targetLanguage = intentData['target_language'] as String?;
+      final snippetKey = intentData['snippet_key'] as String?;
       
-      debugPrint('[RecordingProvider] Detected Intent - Action: $action, Target: $targetLanguage');
+      debugPrint('[RecordingProvider] Detected Intent - Action: $action, Target: $targetLanguage, Snippet_Key: $snippetKey');
 
       // 3. Treatment & Translation 
-      debugPrint('[RecordingProvider] Treating/translating text...');
-      final cleanedText = await _groqService.treatText(
-        _settings.groqApiKey!, 
-        transcription, 
-        _settings.llmModel,
-        targetLanguage: action == 'translate' ? targetLanguage : null,
-      );
-      debugPrint('[RecordingProvider] Treatment complete: $cleanedText');
+      String cleanedText = "";
+
+      if (action == 'snippet' && snippetKey != null) {
+        final snippet = _settings.snippets.where((s) => s.key.toLowerCase() == snippetKey.toLowerCase()).firstOrNull;
+        if (snippet != null) {
+          debugPrint('[RecordingProvider] Snippet Match found! Bypassing treatment.');
+          cleanedText = snippet.value;
+        } else {
+          debugPrint('[RecordingProvider] Snippet requested but key not found. Falling back to treat.');
+          cleanedText = await _groqService.treatText(
+            _settings.groqApiKey!, 
+            transcription, 
+            _settings.llmModel,
+          );
+        }
+      } else {
+        debugPrint('[RecordingProvider] Treating/translating text...');
+        cleanedText = await _groqService.treatText(
+          _settings.groqApiKey!, 
+          transcription, 
+          _settings.llmModel,
+          targetLanguage: action == 'translate' ? targetLanguage : null,
+        );
+      }
+      debugPrint('[RecordingProvider] Final Text: $cleanedText');
 
       // 4. Clipboard copy
       debugPrint('[RecordingProvider] Copying to clipboard...');

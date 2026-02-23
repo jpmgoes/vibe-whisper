@@ -391,6 +391,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Intent Model (Router)'**
   String get intentModel;
+
+  /// No description provided for @snippets.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice Snippets'**
+  String get snippets;
+
+  /// No description provided for @addSnippet.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Snippet'**
+  String get addSnippet;
+
+  /// No description provided for @editSnippet.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Snippet'**
+  String get editSnippet;
+
+  /// No description provided for @newSnippet.
+  ///
+  /// In en, this message translates to:
+  /// **'New Snippet'**
+  String get newSnippet;
+
+  /// No description provided for @snippetCommandLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Command/Key (e.g., \"my email\")'**
+  String get snippetCommandLabel;
+
+  /// No description provided for @snippetValueLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Value to paste'**
+  String get snippetValueLabel;
+
+  /// No description provided for @noSnippetsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No snippets yet.'**
+  String get noSnippetsYet;
 }
 
 class _AppLocalizationsDelegate
