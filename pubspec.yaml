@@ -55,6 +55,7 @@ dependencies:
   audioplayers: ^6.5.1
   path: ^1.9.1
   launch_at_startup: ^0.5.1
+  another_flushbar: ^1.12.32
 
 dev_dependencies:
   flutter_test:

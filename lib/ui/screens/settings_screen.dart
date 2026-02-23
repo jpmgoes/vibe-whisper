@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../core/providers/settings_provider.dart';
 import '../../l10n/app_localizations.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:another_flushbar/flushbar.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -316,7 +317,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               onChanged: (v) {
                                 if (v != null) {
                                     settings.setAppLanguage(v);
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.settingsSaved)));
+                                    Flushbar(
+                                      message: l10n.settingsSaved,
+                                      duration: const Duration(seconds: 2),
+                                      backgroundColor: Colors.green.shade800,
+                                    ).show(context);
                                 }
                               },
                               icon: const Icon(Icons.expand_more, color: Colors.grey),
@@ -344,7 +349,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 ElevatedButton.icon(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.settingsSaved)));
+                    Flushbar(
+                      message: l10n.settingsSaved,
+                      duration: const Duration(seconds: 2),
+                      backgroundColor: Colors.green.shade800,
+                    ).show(context);
                   },
                   icon: const Icon(Icons.save, size: 18),
                   label: Text(l10n.saveChanges),

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/providers/settings_provider.dart';
 import '../../l10n/app_localizations.dart';
+import 'package:another_flushbar/flushbar.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -35,9 +36,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         setState(() {
           _isLoading = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.invalidApiKey)),
-        );
+        Flushbar(
+          message: l10n.invalidApiKey,
+          duration: const Duration(seconds: 3),
+          backgroundColor: Colors.red.shade800,
+        ).show(context);
       }
     }
   }
