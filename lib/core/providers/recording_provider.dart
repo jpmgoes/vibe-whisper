@@ -3,6 +3,7 @@ import 'package:local_notifier/local_notifier.dart';
 import '../services/audio_service.dart';
 import '../services/groq_service.dart';
 import '../services/clipboard_service.dart';
+import '../services/audio_player_service.dart';
 import 'settings_provider.dart';
 
 enum RecordingState { idle, recording, processing, success, error }
@@ -11,9 +12,10 @@ class RecordingProvider with ChangeNotifier {
   final AudioService _audioService;
   final GroqService _groqService;
   final ClipboardService _clipboardService;
+  final AudioPlayerService _audioPlayerService;
   final SettingsProvider _settings;
 
-  RecordingProvider(this._audioService, this._groqService, this._clipboardService, this._settings);
+  RecordingProvider(this._audioService, this._groqService, this._clipboardService, this._audioPlayerService, this._settings);
 
   RecordingState _state = RecordingState.idle;
   String? _errorMessage;
@@ -44,11 +46,13 @@ class RecordingProvider with ChangeNotifier {
       await _audioService.startRecording();
       _state = RecordingState.recording;
       _errorMessage = null;
+      _audioPlayerService.playStart();
       _showNotification('Whisper', 'Listening...');
       notifyListeners();
       debugPrint('[RecordingProvider] Started successfully.');
     } catch (e, stack) {
       debugPrint('[RecordingProvider] Exception in _startRecording: $e\n$stack');
+      _audioPlayerService.playCancel();
       _handleError('Failed to start recording: ${e.toString()}');
     }
   }
@@ -57,6 +61,7 @@ class RecordingProvider with ChangeNotifier {
     try {
       debugPrint('[RecordingProvider] _stopAndProcessRecording called. Updating state to processing...');
       _state = RecordingState.processing;
+      _audioPlayerService.startLoadingLoop();
       _showNotification('Whisper', 'Processing audio...');
       notifyListeners();
 
@@ -74,6 +79,16 @@ class RecordingProvider with ChangeNotifier {
         _settings.whisperModel
       );
       debugPrint('[RecordingProvider] Transcription complete: $transcription');
+
+      if (transcription.trim().isEmpty) {
+        debugPrint('[RecordingProvider] Transcription is empty. Canceling process.');
+        _state = RecordingState.idle;
+        _audioPlayerService.stopLoadingLoop();
+        _audioPlayerService.playCancel();
+        _showNotification('Whisper', 'No speech detected. Cancelled.');
+        notifyListeners();
+        return;
+      }
 
       // 2. Treatment
       debugPrint('[RecordingProvider] Starting text treatment step via GroqService...');
@@ -94,11 +109,15 @@ class RecordingProvider with ChangeNotifier {
 
       _lastResult = cleanedText;
       _state = RecordingState.idle;
+      _audioPlayerService.stopLoadingLoop();
+      _audioPlayerService.playDone();
       _showNotification('Success', 'Text copied to clipboard');
       debugPrint('[RecordingProvider] Processing flow completed successfully.');
       notifyListeners();
     } catch (e, stack) {
       debugPrint('[RecordingProvider] Exception in _stopAndProcessRecording: $e\n$stack');
+      _audioPlayerService.stopLoadingLoop();
+      _audioPlayerService.playCancel();
       _handleError(e.toString());
     }
   }

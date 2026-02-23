@@ -5,6 +5,7 @@
 import FlutterMacOS
 import Foundation
 
+import audioplayers_darwin
 import flutter_secure_storage_darwin
 import hotkey_manager_macos
 import local_notifier
@@ -15,6 +16,7 @@ import tray_manager
 import window_manager
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
+  AudioplayersDarwinPlugin.register(with: registry.registrar(forPlugin: "AudioplayersDarwinPlugin"))
   FlutterSecureStorageDarwinPlugin.register(with: registry.registrar(forPlugin: "FlutterSecureStorageDarwinPlugin"))
   HotkeyManagerMacosPlugin.register(with: registry.registrar(forPlugin: "HotkeyManagerMacosPlugin"))
   LocalNotifierPlugin.register(with: registry.registrar(forPlugin: "LocalNotifierPlugin"))

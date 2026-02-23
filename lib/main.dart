@@ -12,6 +12,7 @@ import 'core/services/audio_service.dart';
 import 'core/services/groq_service.dart';
 import 'core/services/clipboard_service.dart';
 import 'core/services/shortcut_service.dart';
+import 'core/services/audio_player_service.dart';
 import 'core/services/tray_service.dart';
 import 'core/providers/settings_provider.dart';
 import 'core/providers/recording_provider.dart';
@@ -49,6 +50,8 @@ void main() async {
   final groqService = GroqService();
   final clipboardService = ClipboardService();
   final shortcutService = ShortcutService();
+  final audioPlayerService = AudioPlayerService();
+  await audioPlayerService.prefetchAll();
 
   final settingsProvider = SettingsProvider(storageService, groqService);
   await settingsProvider.init();
@@ -57,6 +60,7 @@ void main() async {
     audioService,
     groqService,
     clipboardService,
+    audioPlayerService,
     settingsProvider,
   );
 
