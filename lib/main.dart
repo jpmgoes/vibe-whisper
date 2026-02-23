@@ -95,6 +95,7 @@ void main() async {
         recordingProvider.state == RecordingState.success || 
         recordingProvider.state == RecordingState.error) {
       await windowManager.setTitleBarStyle(TitleBarStyle.hidden, windowButtonVisibility: false);
+      await windowManager.setBackgroundColor(Colors.transparent);
       await windowManager.setHasShadow(false);
       await windowManager.setSize(const Size(200, 100));
       await windowManager.setAlignment(Alignment.bottomCenter);
