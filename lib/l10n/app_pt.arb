@@ -44,5 +44,6 @@
   "copiedProcessedMsg": "Texto processado copiado para a área de transferência.",
   "clearHistoryTitle": "Limpar Histórico",
   "clearHistoryMsg": "Tem certeza de que deseja excluir todo o histórico de transcrições? Esta ação não pode ser desfeita.",
-  "cancel": "Cancelar"
+  "cancel": "Cancelar",
+  "intentModel": "Intent Model (Router)"
 }

@@ -44,5 +44,6 @@
   "copiedProcessedMsg": "Văn bản đã xử lý được sao chép vào khay nhớ tạm.",
   "clearHistoryTitle": "Xóa lịch sử",
   "clearHistoryMsg": "Bạn có chắc chắn muốn xóa tất cả lịch sử phiên âm không? Không thể hoàn tác hành động này.",
-  "cancel": "Hủy"
+  "cancel": "Hủy",
+  "intentModel": "Intent Model (Router)"
 }

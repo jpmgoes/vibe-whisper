@@ -44,5 +44,6 @@
   "copiedProcessedMsg": "处理后的文本已复制到剪贴板。",
   "clearHistoryTitle": "清除历史记录",
   "clearHistoryMsg": "您确定要删除所有转录历史记录吗？此操作无法撤销。",
-  "cancel": "取消"
+  "cancel": "取消",
+  "intentModel": "Intent Model (Router)"
 }

@@ -144,4 +144,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cancel => 'Cancel';
+
+  @override
+  String get intentModel => 'Intent Model (Router)';
 }

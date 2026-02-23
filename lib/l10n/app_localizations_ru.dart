@@ -147,4 +147,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get cancel => 'Отмена';
+
+  @override
+  String get intentModel => 'Intent Model (Router)';
 }

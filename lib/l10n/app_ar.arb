@@ -44,5 +44,6 @@
   "copiedProcessedMsg": "تم نسخ النص المعالج إلى الحافظة.",
   "clearHistoryTitle": "مسح السجل",
   "clearHistoryMsg": "هل أنت متأكد أنك تريد حذف كل سجل النسخ؟ لا يمكن التراجع عن هذا الإجراء.",
-  "cancel": "إلغاء"
+  "cancel": "إلغاء",
+  "intentModel": "Intent Model (Router)"
 }

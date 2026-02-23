@@ -44,5 +44,6 @@
   "copiedProcessedMsg": "Testo elaborato copiato negli appunti.",
   "clearHistoryTitle": "Cancella Cronologia",
   "clearHistoryMsg": "Sei sicuro di voler eliminare tutta la cronologia delle trascrizioni? Questa azione non può essere annullata.",
-  "cancel": "Annulla"
+  "cancel": "Annulla",
+  "intentModel": "Intent Model (Router)"
 }

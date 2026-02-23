@@ -142,4 +142,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get cancel => '取消';
+
+  @override
+  String get intentModel => 'Intent Model (Router)';
 }

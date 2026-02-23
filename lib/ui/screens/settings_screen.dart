@@ -195,6 +195,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
 
                     const SizedBox(height: 16),
+                    Text(l10n.intentModel, style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)),
+                    const SizedBox(height: 6),
+                    DropdownButtonFormField<String>(
+                      initialValue: settings.availableLlmModels.contains(settings.intentModel) ? settings.intentModel : (settings.availableLlmModels.isNotEmpty ? settings.availableLlmModels.first : null),
+                      items: settings.availableLlmModels.map((m) => DropdownMenuItem(value: m, child: Text(m, style: const TextStyle(fontSize: 13)))).toList(),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: cardBgColor,
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: borderColor)),
+                        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: borderColor)),
+                      ),
+                      onChanged: (val) {
+                        if (val != null) {
+                          settings.setIntentModel(val);
+                          _showSavedNotification();
+                        }
+                      },
+                      icon: const Icon(Icons.expand_more, color: Colors.grey),
+                    ),
+
+                    const SizedBox(height: 16),
                     Text(l10n.whisperModel, style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)),
                     const SizedBox(height: 6),
                     DropdownButtonFormField<String>(

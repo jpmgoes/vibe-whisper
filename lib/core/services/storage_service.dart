@@ -61,6 +61,9 @@ class StorageService {
   String get llmModel => _prefs.getString('llm_model') ?? 'moonshotai/kimi-k2-instruct-0905';
   Future<void> setLlmModel(String model) async => await _prefs.setString('llm_model', model);
 
+  String get intentModel => _prefs.getString('intent_model') ?? 'llama3-8b-8192';
+  Future<void> setIntentModel(String model) async => await _prefs.setString('intent_model', model);
+
   String get whisperModel => _prefs.getString('whisper_model') ?? 'whisper-large-v3-turbo';
   Future<void> setWhisperModel(String model) async => await _prefs.setString('whisper_model', model);
 

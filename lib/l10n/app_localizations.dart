@@ -385,6 +385,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get cancel;
+
+  /// No description provided for @intentModel.
+  ///
+  /// In en, this message translates to:
+  /// **'Intent Model (Router)'**
+  String get intentModel;
 }
 
 class _AppLocalizationsDelegate

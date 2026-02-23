@@ -44,5 +44,6 @@
   "copiedProcessedMsg": "Processed text copied to clipboard.",
   "clearHistoryTitle": "Clear History",
   "clearHistoryMsg": "Are you sure you want to delete all transcription history? This action cannot be undone.",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "intentModel": "Intent Model (Router)"
 }

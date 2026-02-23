@@ -115,16 +115,31 @@ class RecordingProvider with ChangeNotifier {
         return;
       }
 
-      // 2. Treatment
-      debugPrint('[RecordingProvider] Starting text treatment step via GroqService...');
+      // 2. Intent Detection
+      _state = RecordingState.processing;
+      debugPrint('[RecordingProvider] Checking user intent for translation...');
+      final intentData = await _groqService.determineIntent(
+        _settings.groqApiKey!, 
+        transcription,
+        _settings.intentModel
+      );
+      
+      final action = intentData['action'] as String;
+      final targetLanguage = intentData['target_language'] as String?;
+      
+      debugPrint('[RecordingProvider] Detected Intent - Action: $action, Target: $targetLanguage');
+
+      // 3. Treatment & Translation 
+      debugPrint('[RecordingProvider] Treating/translating text...');
       final cleanedText = await _groqService.treatText(
         _settings.groqApiKey!, 
         transcription, 
-        _settings.llmModel
+        _settings.llmModel,
+        targetLanguage: action == 'translate' ? targetLanguage : null,
       );
       debugPrint('[RecordingProvider] Treatment complete: $cleanedText');
 
-      // 3. Clipboard copy
+      // 4. Clipboard copy
       debugPrint('[RecordingProvider] Copying to clipboard...');
       await _clipboardService.copyToClipboard(cleanedText);
 

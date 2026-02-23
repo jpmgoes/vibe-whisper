@@ -10,6 +10,7 @@ class SettingsProvider with ChangeNotifier {
 
   String? _groqApiKey;
   String _llmModel = 'moonshotai/kimi-k2-instruct-0905';
+  String _intentModel = 'llama3-8b-8192';
   String _whisperModel = 'whisper-large-v3-turbo';
   bool _autoPaste = true;
   String _appLanguage = 'en';
@@ -22,6 +23,7 @@ class SettingsProvider with ChangeNotifier {
 
   String? get groqApiKey => _groqApiKey;
   String get llmModel => _llmModel;
+  String get intentModel => _intentModel;
   String get whisperModel => _whisperModel;
   bool get autoPaste => _autoPaste;
   String get appLanguage => _appLanguage;
@@ -34,6 +36,7 @@ class SettingsProvider with ChangeNotifier {
   Future<void> init() async {
     _groqApiKey = await _storageService.getGroqApiKey();
     _llmModel = _storageService.llmModel;
+    _intentModel = _storageService.intentModel;
     _whisperModel = _storageService.whisperModel;
     _autoPaste = _storageService.autoPaste;
     _appLanguage = _storageService.appLanguage;
@@ -62,6 +65,13 @@ class SettingsProvider with ChangeNotifier {
         _llmModel = kimiModel ?? _availableLlmModels.first;
         await _storageService.setLlmModel(_llmModel);
       }
+
+      if (!_availableLlmModels.contains(_intentModel) && _availableLlmModels.isNotEmpty) {
+        final llamaModel = _availableLlmModels.where((m) => m.toLowerCase().contains('llama') && m.toLowerCase().contains('8b')).firstOrNull;
+        _intentModel = llamaModel ?? _availableLlmModels.first;
+        await _storageService.setIntentModel(_intentModel);
+      }
+
       notifyListeners();
     } catch (e) {
       debugPrint('Error fetching models: $e');
@@ -78,6 +88,12 @@ class SettingsProvider with ChangeNotifier {
   Future<void> setLlmModel(String model) async {
     _llmModel = model;
     await _storageService.setLlmModel(model);
+    notifyListeners();
+  }
+
+  Future<void> setIntentModel(String model) async {
+    _intentModel = model;
+    await _storageService.setIntentModel(model);
     notifyListeners();
   }
 

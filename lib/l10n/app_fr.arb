@@ -44,5 +44,6 @@
   "copiedProcessedMsg": "Texte traité copié dans le presse-papiers.",
   "clearHistoryTitle": "Effacer l'historique",
   "clearHistoryMsg": "Êtes-vous sûr de vouloir supprimer tout l'historique des transcriptions ? Cette action est irréversible.",
-  "cancel": "Annuler"
+  "cancel": "Annuler",
+  "intentModel": "Intent Model (Router)"
 }

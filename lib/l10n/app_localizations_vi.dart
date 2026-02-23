@@ -148,4 +148,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get cancel => 'Hủy';
+
+  @override
+  String get intentModel => 'Intent Model (Router)';
 }

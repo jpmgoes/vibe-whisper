@@ -44,5 +44,6 @@
   "copiedProcessedMsg": "Обработанный текст скопирован в буфер обмена.",
   "clearHistoryTitle": "Очистить историю",
   "clearHistoryMsg": "Вы уверены, что хотите удалить всю историю транскрипций? Это действие нельзя отменить.",
-  "cancel": "Отмена"
+  "cancel": "Отмена",
+  "intentModel": "Intent Model (Router)"
 }

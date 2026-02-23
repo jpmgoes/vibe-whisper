@@ -44,5 +44,6 @@
   "copiedProcessedMsg": "処理済みのテキストをクリップボードにコピーしました。",
   "clearHistoryTitle": "履歴をクリア",
   "clearHistoryMsg": "文字起こし履歴をすべて削除してもよろしいですか？この操作は元に戻せません。",
-  "cancel": "キャンセル"
+  "cancel": "キャンセル",
+  "intentModel": "Intent Model (Router)"
 }

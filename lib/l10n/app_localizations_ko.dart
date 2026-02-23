@@ -142,4 +142,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get cancel => '취소';
+
+  @override
+  String get intentModel => 'Intent Model (Router)';
 }

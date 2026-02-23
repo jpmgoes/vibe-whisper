@@ -142,4 +142,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get cancel => 'キャンセル';
+
+  @override
+  String get intentModel => 'Intent Model (Router)';
 }

@@ -44,5 +44,6 @@
   "copiedProcessedMsg": "Texto procesado copiado al portapapeles.",
   "clearHistoryTitle": "Borrar Historial",
   "clearHistoryMsg": "¿Está seguro de que desea eliminar todo el historial de transcripciones? Esta acción no se puede deshacer.",
-  "cancel": "Cancelar"
+  "cancel": "Cancelar",
+  "intentModel": "Intent Model (Router)"
 }
