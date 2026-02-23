@@ -42,6 +42,10 @@ class RecordingProvider with ChangeNotifier {
       if (_settings.groqApiKey == null || _settings.groqApiKey!.isEmpty) {
         throw Exception('Groq API Key is missing. Please configure it in settings.');
       }
+      
+      debugPrint('[RecordingProvider] Saving currently focused application...');
+      await _clipboardService.saveCurrentFocusedApp();
+
       debugPrint('[RecordingProvider] Invoking audioService.startRecording()');
       await _audioService.startRecording();
       _state = RecordingState.recording;
@@ -99,13 +103,9 @@ class RecordingProvider with ChangeNotifier {
       );
       debugPrint('[RecordingProvider] Treatment complete: $cleanedText');
 
-      // 3. Clipboard & Paste
+      // 3. Clipboard copy
       debugPrint('[RecordingProvider] Copying to clipboard...');
       await _clipboardService.copyToClipboard(cleanedText);
-      if (_settings.autoPaste) {
-        debugPrint('[RecordingProvider] Simulating auto-paste...');
-        await _clipboardService.simulatePaste();
-      }
 
       _lastResult = cleanedText;
       _state = RecordingState.idle;
@@ -113,7 +113,21 @@ class RecordingProvider with ChangeNotifier {
       _audioPlayerService.playDone();
       _showNotification('Success', 'Text copied to clipboard');
       debugPrint('[RecordingProvider] Processing flow completed successfully.');
+      
+      // Notify listeners first (this triggers the window to hide in main.dart)
       notifyListeners();
+
+      // Wait slightly to ensure macOS hides the window
+      await Future.delayed(const Duration(milliseconds: 200));
+
+      // 4. Auto Paste (After hiding)
+      if (_settings.autoPaste) {
+        debugPrint('[RecordingProvider] Restoring previous application focus...');
+        await _clipboardService.restorePreviousApp();
+
+        debugPrint('[RecordingProvider] Simulating auto-paste...');
+        await _clipboardService.simulatePaste();
+      }
     } catch (e, stack) {
       debugPrint('[RecordingProvider] Exception in _stopAndProcessRecording: $e\n$stack');
       _audioPlayerService.stopLoadingLoop();

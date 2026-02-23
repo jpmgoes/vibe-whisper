@@ -30,6 +30,8 @@
 	<string>NSApplication</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>This app requires permission to control System Events in order to automatically paste transcribed text into your currently active application.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app requires access to the microphone to record your voice for Whisper transcription.</string>
 </dict>

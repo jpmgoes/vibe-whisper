@@ -99,6 +99,13 @@ void main() async {
   // Register Shortcut
   await shortcutService.init(() async {
     // If not currently recording, we are ABOUT to start recording.
+    bool wasFocused = await windowManager.isFocused();
+    
+    // If we are in the background, ensure we don't open the settings window when done.
+    if (!wasFocused) {
+      router.go('/hidden');
+    }
+
     // Resize window to small pill format before ensuring it's visible.
     if (recordingProvider.state == RecordingState.idle || 
         recordingProvider.state == RecordingState.success || 
@@ -112,9 +119,9 @@ void main() async {
     }
     
     if (!await windowManager.isVisible()) {
-      await windowManager.show();
+      await windowManager.show(inactive: true);
     }
-    await windowManager.focus();
+    
     recordingProvider.toggleRecording();
   });
 
