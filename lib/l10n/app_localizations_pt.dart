@@ -67,4 +67,42 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get enterApiKey => 'Por favor, insira sua Chave de API';
+
+  @override
+  String get processing => 'Processando';
+
+  @override
+  String get errorTryAgain => 'Erro. Tente novamente.';
+
+  @override
+  String get invalidApiKey => 'Chave API inválida ou nenhum modelo encontrado.';
+
+  @override
+  String get setupWorkspace => 'Configure seu workspace';
+
+  @override
+  String get configureVoice =>
+      'Configure suas opções de voz e conexão de IA para habilitar a transcrição de áudio.';
+
+  @override
+  String get primaryLanguage => 'Idioma Principal';
+
+  @override
+  String get getStarted => 'Começar';
+
+  @override
+  String get keyStoredLocally =>
+      'Sua chave é armazenada localmente e criptografada.';
+
+  @override
+  String get toggleRecording => 'Gravar / Parar';
+
+  @override
+  String get fillActiveField => 'Preencher campo ativo';
+
+  @override
+  String get settingsSaved => 'Configurações salvas automaticamente.';
+
+  @override
+  String get saveChanges => 'Salvar Alterações';
 }

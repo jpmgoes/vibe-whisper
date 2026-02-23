@@ -123,7 +123,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Groq API Key', style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)),
+                    Text(l10n.groqApiKey, style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)),
                     const SizedBox(height: 6),
                     TextFormField(
                       controller: _apiKeyController,
@@ -144,7 +144,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onChanged: (val) => settings.setGroqApiKey(val),
                     ),
                     const SizedBox(height: 6),
-                    Text('Your key is stored locally and encrypted.', style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
+                    Text(l10n.keyStoredLocally, style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
                     
                     const SizedBox(height: 16),
                     Text(l10n.llmModel, style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)),
@@ -221,7 +221,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Toggle Recording', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: isDark ? Colors.grey.shade300 : Colors.grey.shade600)),
+                            Text(l10n.toggleRecording, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: isDark ? Colors.grey.shade300 : Colors.grey.shade600)),
                             const SizedBox(height: 12),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -259,7 +259,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Fill active field', style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
+                                Text(l10n.fillActiveField, style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
                                 Switch(
                                   value: settings.autoPaste,
                                   onChanged: (val) => settings.setAutoPaste(val),
@@ -290,10 +290,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: [
                 ElevatedButton.icon(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Settings saved automatically.')));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.settingsSaved)));
                   },
                   icon: const Icon(Icons.save, size: 18),
-                  label: const Text('Save Changes'),
+                  label: Text(l10n.saveChanges),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colorScheme.primary,
                     foregroundColor: Colors.white,

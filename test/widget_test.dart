@@ -16,7 +16,7 @@ void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     final dummyRouter = GoRouter(routes: [GoRoute(path: '/', builder: (_, _) => const SizedBox())]);
     // Build our app and trigger a frame.
-    await tester.pumpWidget(OwnWhisperApp(router: dummyRouter));
+    await tester.pumpWidget(VibeWhisperApp(router: dummyRouter));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

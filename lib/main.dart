@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
@@ -40,7 +42,14 @@ void main() async {
   await windowManager.setPreventClose(true);
   
   await hotKeyManager.unregisterAll();
-  await localNotifier.setup(appName: 'OwnWhisper');
+  await localNotifier.setup(appName: 'VibeWhisper');
+
+  launchAtStartup.setup(
+    appName: 'VibeWhisper',
+    appPath: Platform.resolvedExecutable,
+    packageName: 'com.example.vibeWhisper',
+  );
+  await launchAtStartup.enable();
 
   // Init services
   final storageService = StorageService();
@@ -135,15 +144,15 @@ void main() async {
         ChangeNotifierProvider.value(value: settingsProvider),
         ChangeNotifierProvider.value(value: recordingProvider),
       ],
-      child: OwnWhisperApp(router: router),
+      child: VibeWhisperApp(router: router),
     ),
   );
 }
 
-class OwnWhisperApp extends StatelessWidget {
+class VibeWhisperApp extends StatelessWidget {
   final GoRouter router;
   
-  const OwnWhisperApp({super.key, required this.router});
+  const VibeWhisperApp({super.key, required this.router});
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +163,7 @@ class OwnWhisperApp extends StatelessWidget {
     if (settings.themeMode == 'dark') themeMode = ThemeMode.dark;
 
     return MaterialApp.router(
-      title: 'Own Whisper',
+      title: 'VibeWhisper',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,

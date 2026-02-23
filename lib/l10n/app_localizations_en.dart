@@ -67,4 +67,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enterApiKey => 'Please enter your API Key';
+
+  @override
+  String get processing => 'Processing';
+
+  @override
+  String get errorTryAgain => 'Error. Try again.';
+
+  @override
+  String get invalidApiKey => 'Invalid API Key or no models found.';
+
+  @override
+  String get setupWorkspace => 'Set up your workspace';
+
+  @override
+  String get configureVoice =>
+      'Configure your voice settings and AI connection to unlock powerful voice-to-text features.';
+
+  @override
+  String get primaryLanguage => 'Primary Language';
+
+  @override
+  String get getStarted => 'Get Started';
+
+  @override
+  String get keyStoredLocally => 'Your key is stored locally and encrypted.';
+
+  @override
+  String get toggleRecording => 'Toggle Recording';
+
+  @override
+  String get fillActiveField => 'Fill active field';
+
+  @override
+  String get settingsSaved => 'Settings saved automatically.';
+
+  @override
+  String get saveChanges => 'Save Changes';
 }

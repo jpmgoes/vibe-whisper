@@ -219,6 +219,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter your API Key'**
   String get enterApiKey;
+
+  /// No description provided for @processing.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing'**
+  String get processing;
+
+  /// No description provided for @errorTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Error. Try again.'**
+  String get errorTryAgain;
+
+  /// No description provided for @invalidApiKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid API Key or no models found.'**
+  String get invalidApiKey;
+
+  /// No description provided for @setupWorkspace.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up your workspace'**
+  String get setupWorkspace;
+
+  /// No description provided for @configureVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure your voice settings and AI connection to unlock powerful voice-to-text features.'**
+  String get configureVoice;
+
+  /// No description provided for @primaryLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Language'**
+  String get primaryLanguage;
+
+  /// No description provided for @getStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
+  /// No description provided for @keyStoredLocally.
+  ///
+  /// In en, this message translates to:
+  /// **'Your key is stored locally and encrypted.'**
+  String get keyStoredLocally;
+
+  /// No description provided for @toggleRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle Recording'**
+  String get toggleRecording;
+
+  /// No description provided for @fillActiveField.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill active field'**
+  String get fillActiveField;
+
+  /// No description provided for @settingsSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings saved automatically.'**
+  String get settingsSaved;
+
+  /// No description provided for @saveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get saveChanges;
 }
 
 class _AppLocalizationsDelegate

@@ -19,5 +19,17 @@
   "success": "Éxito",
   "error": "Error",
   "textCopied": "Texto copiado al portapapeles",
-  "enterApiKey": "Por favor, introduzca su Clave API"
+  "enterApiKey": "Por favor, introduzca su Clave API",
+  "processing": "Procesando",
+  "errorTryAgain": "Error. Inténtalo de nuevo.",
+  "invalidApiKey": "Clave API inválida o no se encontraron modelos.",
+  "setupWorkspace": "Configura tu espacio de trabajo",
+  "configureVoice": "Configura tus opciones de voz y conexión a IA para habilitar la transcripción de audio.",
+  "primaryLanguage": "Idioma Principal",
+  "getStarted": "Empezar",
+  "keyStoredLocally": "Su clave se almacena localmente y está encriptada.",
+  "toggleRecording": "Grabar / Detener",
+  "fillActiveField": "Rellenar campo activo",
+  "settingsSaved": "Configuraciones guardadas automáticamente.",
+  "saveChanges": "Guardar Cambios"
 }

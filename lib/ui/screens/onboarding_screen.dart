@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/providers/settings_provider.dart';
+import '../../l10n/app_localizations.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -18,6 +19,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final key = _apiKeyController.text.trim();
     if (key.isEmpty) return;
 
+    final l10n = AppLocalizations.of(context)!;
+
     setState(() {
       _isLoading = true;
     });
@@ -33,7 +36,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           _isLoading = false;
         });
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Invalid API Key or no models found.')),
+          SnackBar(content: Text(l10n.invalidApiKey)),
         );
       }
     }
@@ -44,6 +47,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final settings = context.watch<SettingsProvider>();
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -116,7 +120,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                     const SizedBox(height: 24),
                     Text(
-                      'Set up your workspace',
+                      l10n.setupWorkspace,
                       style: theme.textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: theme.textTheme.bodyMedium?.color,
@@ -125,7 +129,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'Configure your voice settings and AI connection to unlock powerful voice-to-text features.',
+                      l10n.configureVoice,
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: isDark ? const Color(0xFF92adc9) : Colors.grey.shade600,
@@ -138,9 +142,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _ThemeButton(label: 'Light', icon: Icons.light_mode, mode: 'light', current: settings.themeMode, onTap: () => settings.setThemeMode('light')),
-                        _ThemeButton(label: 'Dark', icon: Icons.dark_mode, mode: 'dark', current: settings.themeMode, onTap: () => settings.setThemeMode('dark')),
-                        _ThemeButton(label: 'System', icon: Icons.settings_system_daydream, mode: 'system', current: settings.themeMode, onTap: () => settings.setThemeMode('system')),
+                        _ThemeButton(label: l10n.light, icon: Icons.light_mode, mode: 'light', current: settings.themeMode, onTap: () => settings.setThemeMode('light')),
+                        _ThemeButton(label: l10n.dark, icon: Icons.dark_mode, mode: 'dark', current: settings.themeMode, onTap: () => settings.setThemeMode('dark')),
+                        _ThemeButton(label: l10n.system, icon: Icons.settings_system_daydream, mode: 'system', current: settings.themeMode, onTap: () => settings.setThemeMode('system')),
                       ],
                     ),
                     const SizedBox(height: 32),
@@ -151,7 +155,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 4, bottom: 8),
-                          child: Text('Primary Language', style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold)),
+                          child: Text(l10n.primaryLanguage, style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold)),
                         ),
                         DropdownButtonFormField<String>(
                           decoration: InputDecoration(
@@ -187,7 +191,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 4, bottom: 8),
-                          child: Text('Groq API Key', style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold)),
+                          child: Text(l10n.groqApiKey, style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold)),
                         ),
                         TextFormField(
                           controller: _apiKeyController,
@@ -225,12 +229,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         onPressed: _isLoading ? null : _getStarted,
                         child: _isLoading 
                           ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                          : const Row(
+                          : Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Get Started', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                                SizedBox(width: 8),
-                                Icon(Icons.arrow_forward),
+                                Text(l10n.getStarted, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                                const SizedBox(width: 8),
+                                const Icon(Icons.arrow_forward),
                               ],
                             ),
                       ),
