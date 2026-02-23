@@ -173,9 +173,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           initialValue: settings.appLanguage,
                           items: const [
-                            DropdownMenuItem(value: 'en', child: Text('English')),
-                            DropdownMenuItem(value: 'pt', child: Text('Português')),
-                            DropdownMenuItem(value: 'es', child: Text('Español')),
+                            DropdownMenuItem(value: 'en', child: Text('🇺🇸 English')),
+                            DropdownMenuItem(value: 'pt', child: Text('🇧🇷 Português')),
+                            DropdownMenuItem(value: 'es', child: Text('🇪🇸 Español')),
                           ],
                           onChanged: (v) {
                             if (v != null) settings.setAppLanguage(v);
