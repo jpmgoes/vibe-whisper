@@ -273,6 +273,60 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ],
                 ),
+                
+                const SizedBox(height: 16),
+                
+                // Language Selection
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: cardBgColor,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: borderColor),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(l10n.primaryLanguage, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: isDark ? Colors.grey.shade300 : Colors.grey.shade600)),
+                            const SizedBox(height: 12),
+                            DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.language, size: 20),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(color: borderColor),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(color: borderColor),
+                                ),
+                                filled: true,
+                                fillColor: isDark ? const Color(0xFF111a22) : Colors.white,
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                              ),
+                              initialValue: settings.appLanguage,
+                              items: const [
+                                DropdownMenuItem(value: 'en', child: Text('🇺🇸 English', style: TextStyle(fontSize: 13))),
+                                DropdownMenuItem(value: 'pt', child: Text('🇧🇷 Português', style: TextStyle(fontSize: 13))),
+                                DropdownMenuItem(value: 'es', child: Text('🇪🇸 Español', style: TextStyle(fontSize: 13))),
+                              ],
+                              onChanged: (v) {
+                                if (v != null) {
+                                    settings.setAppLanguage(v);
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.settingsSaved)));
+                                }
+                              },
+                              icon: const Icon(Icons.expand_more, color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
