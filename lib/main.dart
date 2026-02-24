@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:launch_at_startup/launch_at_startup.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +23,9 @@ import 'core/theme/app_theme.dart';
 import 'ui/app_router.dart';
 import 'ui/screens/overlay_screen.dart';
 
+import 'core/services/window_service.dart';
+import 'ui/sub_app.dart';
+
 class AppWindowListener extends WindowListener {
   final GoRouter router;
 
@@ -35,9 +39,19 @@ class AppWindowListener extends WindowListener {
   }
 }
 
-void main() async {
+void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
+  if (args.firstOrNull == 'multi_window') {
+    final windowId = args[1];
+    final argument = args[2].isEmpty
+        ? const <String, dynamic>{}
+        : Map<String, dynamic>.from(jsonDecode(args[2]) as Map);
+        
+    await startSubWindow(windowId, argument);
+    return;
+  }
+
   await windowManager.ensureInitialized();
   await windowManager.setPreventClose(true);
   
@@ -82,17 +96,7 @@ void main() async {
 
   recordingProvider.addListener(() async {
     if (recordingProvider.state == RecordingState.idle) {
-      // If we are not on the settings page or onboarding, hide the window when done
-      final currentRoute = router.routerDelegate.currentConfiguration.uri.toString();
-      if (currentRoute == '/hidden') {
-        await windowManager.hide();
-      } else if (currentRoute == '/settings' || currentRoute == '/') {
-        await windowManager.setTitleBarStyle(TitleBarStyle.hidden, windowButtonVisibility: true);
-        await windowManager.setHasShadow(true);
-        await windowManager.setSize(const Size(800, 700));
-        await windowManager.center();
-        await windowManager.setAlwaysOnTop(false);
-      }
+      await windowManager.hide();
     }
   });
 
@@ -106,17 +110,9 @@ void main() async {
       router.go('/hidden');
     }
 
-    // Resize window to small pill format before ensuring it's visible.
-    if (recordingProvider.state == RecordingState.idle || 
-        recordingProvider.state == RecordingState.success || 
-        recordingProvider.state == RecordingState.error) {
-      await windowManager.setTitleBarStyle(TitleBarStyle.hidden, windowButtonVisibility: false);
-      await windowManager.setBackgroundColor(Colors.transparent);
-      await windowManager.setHasShadow(false);
-      await windowManager.setSize(const Size(200, 100));
-      await windowManager.setAlignment(Alignment.bottomCenter);
-      await windowManager.setAlwaysOnTop(true);
-    }
+    // Window is permanently sized; just ensure it's at the bottom center and on top
+    await windowManager.setAlignment(Alignment.bottomCenter);
+    await windowManager.setAlwaysOnTop(true);
     
     if (!await windowManager.isVisible()) {
       await windowManager.show(inactive: true);
@@ -125,24 +121,33 @@ void main() async {
     recordingProvider.toggleRecording();
   });
 
-  // If no API key, start in Onboarding (800x700). Otherwise, start hidden in Tray.
-  final startHidden = (settingsProvider.groqApiKey != null && settingsProvider.groqApiKey!.isNotEmpty);
+  String lastShortcut = settingsProvider.globalShortcut;
+  settingsProvider.addListener(() {
+    if (settingsProvider.globalShortcut != lastShortcut) {
+      lastShortcut = settingsProvider.globalShortcut;
+      shortcutService.updateShortcut(lastShortcut);
+    }
+  });
+
+  // If no API key, open settings automatically
+  if (settingsProvider.groqApiKey == null || settingsProvider.groqApiKey!.isEmpty) {
+    WindowService.openSubWindow('settings');
+  }
   
-  WindowOptions windowOptions = WindowOptions(
-    size: const Size(800, 700),
-    center: true,
+  // Main whisper widget shouldn't have shadow and shouldn't be full size
+  WindowOptions windowOptions = const WindowOptions(
+    size: Size(200, 100),
     backgroundColor: Colors.transparent,
     skipTaskbar: true,
     titleBarStyle: TitleBarStyle.hidden,
+    windowButtonVisibility: false,
   );
   
   windowManager.waitUntilReadyToShow(windowOptions, () async {
-    if (!startHidden) {
-      await windowManager.show();
-      await windowManager.focus();
-    } else {
-      await windowManager.hide();
-    }
+    await windowManager.setHasShadow(false);
+    await windowManager.setAlignment(Alignment.bottomCenter);
+    await windowManager.setAlwaysOnTop(true);
+    await windowManager.hide();
   });
 
   runApp(

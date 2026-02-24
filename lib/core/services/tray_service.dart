@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:window_manager/window_manager.dart';
 import 'dart:io';
+
+import 'window_service.dart';
 
 class SystemTrayService with TrayListener {
   final GoRouter router;
@@ -66,15 +67,9 @@ class SystemTrayService with TrayListener {
   }
 
   Future<void> _openWindow(String route) async {
-    await windowManager.setTitleBarStyle(TitleBarStyle.hidden, windowButtonVisibility: true);
-    await windowManager.setHasShadow(true);
-    await windowManager.setIgnoreMouseEvents(false);
-    await windowManager.setSize(const Size(800, 700));
-    await windowManager.center();
-    await windowManager.setAlwaysOnTop(false);
-    await windowManager.show();
-    await windowManager.focus();
-    router.go(route);
+    // route comes as '/history', '/settings' etc. We strip the slash
+    final routeName = route.replaceAll('/', '');
+    await WindowService.openSubWindow(routeName);
   }
 
   void dispose() {

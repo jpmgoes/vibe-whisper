@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:desktop_multi_window/desktop_multi_window.dart';
 import '../../core/services/storage_service.dart';
 import '../../core/services/groq_service.dart';
 
@@ -36,6 +37,20 @@ class SettingsProvider with ChangeNotifier {
   List<SnippetItem> get snippets => _snippets;
 
   Future<void> init() async {
+    await _loadFromStorage();
+    try {
+      final controller = await WindowController.fromCurrentEngine();
+      controller.setWindowMethodHandler((call) async {
+        if (call.method == 'reload_settings') {
+          await _storageService.reload();
+          await _loadFromStorage();
+        }
+        return true;
+      });
+    } catch (_) {}
+  }
+
+  Future<void> _loadFromStorage() async {
     _groqApiKey = await _storageService.getGroqApiKey();
     _llmModel = _storageService.llmModel;
     _intentModel = _storageService.intentModel;
@@ -86,66 +101,77 @@ class SettingsProvider with ChangeNotifier {
     await _storageService.saveGroqApiKey(key);
     notifyListeners();
     await fetchModels();
+    await _notifyOthers();
   }
 
   Future<void> setLlmModel(String model) async {
     _llmModel = model;
     await _storageService.setLlmModel(model);
     notifyListeners();
+    await _notifyOthers();
   }
 
   Future<void> setIntentModel(String model) async {
     _intentModel = model;
     await _storageService.setIntentModel(model);
     notifyListeners();
+    await _notifyOthers();
   }
 
   Future<void> setWhisperModel(String model) async {
     _whisperModel = model;
     await _storageService.setWhisperModel(model);
     notifyListeners();
+    await _notifyOthers();
   }
 
   Future<void> setAutoPaste(bool value) async {
     _autoPaste = value;
     await _storageService.setAutoPaste(value);
     notifyListeners();
+    await _notifyOthers();
   }
 
   Future<void> setAppLanguage(String code) async {
     _appLanguage = code;
     await _storageService.setAppLanguage(code);
     notifyListeners();
+    await _notifyOthers();
   }
 
   Future<void> setThemeMode(String mode) async {
     _themeMode = mode;
     await _storageService.setThemeMode(mode);
     notifyListeners();
+    await _notifyOthers();
   }
 
   Future<void> setGlobalShortcut(String shortcut) async {
     _globalShortcut = shortcut;
     await _storageService.setGlobalShortcut(shortcut);
     notifyListeners();
+    await _notifyOthers();
   }
 
   Future<void> addHistoryRecord(HistoryItem item) async {
     _history.insert(0, item);
     await _storageService.saveHistory(_history);
     notifyListeners();
+    await _notifyOthers();
   }
 
   Future<void> removeHistoryRecord(String id) async {
     _history.removeWhere((item) => item.id == id);
     await _storageService.saveHistory(_history);
     notifyListeners();
+    await _notifyOthers();
   }
 
   Future<void> clearHistory() async {
     _history.clear();
     await _storageService.saveHistory(_history);
     notifyListeners();
+    await _notifyOthers();
   }
 
   // --- Snippets ---
@@ -153,6 +179,7 @@ class SettingsProvider with ChangeNotifier {
     _snippets.add(item);
     await _storageService.saveSnippets(_snippets);
     notifyListeners();
+    await _notifyOthers();
   }
 
   Future<void> updateSnippet(SnippetItem updatedItem) async {
@@ -161,6 +188,7 @@ class SettingsProvider with ChangeNotifier {
       _snippets[index] = updatedItem;
       await _storageService.saveSnippets(_snippets);
       notifyListeners();
+      await _notifyOthers();
     }
   }
 
@@ -168,5 +196,18 @@ class SettingsProvider with ChangeNotifier {
     _snippets.removeWhere((item) => item.id == id);
     await _storageService.saveSnippets(_snippets);
     notifyListeners();
+    await _notifyOthers();
+  }
+
+  Future<void> _notifyOthers() async {
+    try {
+      final windows = await WindowController.getAll();
+      final current = await WindowController.fromCurrentEngine();
+      for (var w in windows) {
+        if (w.windowId != current.windowId) {
+          await w.invokeMethod('reload_settings');
+        }
+      }
+    } catch (_) {}
   }
 }

@@ -39,7 +39,11 @@ dependencies:
   http: ^1.6.0
   record: ^6.2.0
   hotkey_manager: ^0.2.3
-  window_manager: ^0.5.1
+  window_manager:
+    git:
+      url: https://github.com/boyan01/window_manager.git
+      path: packages/window_manager
+      ref: 6fae92d21b4c80ce1b8f71c1190d7970cf722bd4
   flutter_secure_storage: ^10.0.0
   shared_preferences: ^2.5.4
   local_notifier: ^0.1.6
@@ -57,6 +61,7 @@ dependencies:
   launch_at_startup: ^0.5.1
   another_flushbar: ^1.12.32
   uuid: ^4.5.3
+  desktop_multi_window: ^0.3.0
 
 dev_dependencies:
   flutter_test:

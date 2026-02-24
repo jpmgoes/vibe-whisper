@@ -19,6 +19,10 @@ class StorageService {
     _prefs = await SharedPreferences.getInstance();
   }
 
+  Future<void> reload() async {
+    await _prefs.reload();
+  }
+
   // --- Secure Storage (API Keys) ---
   Future<void> saveGroqApiKey(String key) async {
     await _secureStorage.write(key: 'groq_api_key', value: key);

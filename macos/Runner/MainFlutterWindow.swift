@@ -2,6 +2,7 @@ import Cocoa
 import FlutterMacOS
 import window_manager
 import ServiceManagement
+import desktop_multi_window
 class MainFlutterWindow: NSWindow {
   override func awakeFromNib() {
     let flutterViewController = FlutterViewController()
@@ -50,6 +51,26 @@ class MainFlutterWindow: NSWindow {
     }
 
     RegisterGeneratedPlugins(registry: flutterViewController)
+
+    FlutterMultiWindowPlugin.setOnWindowCreatedCallback { controller in
+        RegisterGeneratedPlugins(registry: controller)
+        
+        if let window = controller.view.window {
+            window.styleMask = [.titled, .closable, .miniaturizable, .resizable]
+            window.level = .normal
+            window.titleVisibility = .visible
+            window.titlebarAppearsTransparent = false
+            window.isOpaque = true
+            window.hasShadow = true
+            window.backgroundColor = NSColor.windowBackgroundColor
+            window.isMovableByWindowBackground = false
+            
+            // Force buttons to render explicitly
+            window.standardWindowButton(.closeButton)?.isHidden = false
+            window.standardWindowButton(.miniaturizeButton)?.isHidden = false
+            window.standardWindowButton(.zoomButton)?.isHidden = false
+        }
+    }
 
     self.isOpaque = false
     self.backgroundColor = NSColor.clear
