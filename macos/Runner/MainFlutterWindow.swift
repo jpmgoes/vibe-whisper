@@ -56,19 +56,19 @@ class MainFlutterWindow: NSWindow {
         RegisterGeneratedPlugins(registry: controller)
         
         if let window = controller.view.window {
-            window.styleMask = [.titled, .closable, .miniaturizable, .resizable]
+            window.styleMask = [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView]
             window.level = .normal
-            window.titleVisibility = .visible
-            window.titlebarAppearsTransparent = false
-            window.isOpaque = true
+            window.titleVisibility = .hidden
+            window.titlebarAppearsTransparent = true
+            window.isOpaque = false
             window.hasShadow = true
-            window.backgroundColor = NSColor.windowBackgroundColor
-            window.isMovableByWindowBackground = false
+            window.backgroundColor = .clear
+            window.isMovableByWindowBackground = true
             
-            // Force buttons to render explicitly
-            window.standardWindowButton(.closeButton)?.isHidden = false
-            window.standardWindowButton(.miniaturizeButton)?.isHidden = false
-            window.standardWindowButton(.zoomButton)?.isHidden = false
+            // Hide the native traffic light buttons as we use Flutter drawn ones
+            window.standardWindowButton(.closeButton)?.isHidden = true
+            window.standardWindowButton(.miniaturizeButton)?.isHidden = true
+            window.standardWindowButton(.zoomButton)?.isHidden = true
         }
     }
 
