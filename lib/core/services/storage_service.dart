@@ -71,7 +71,7 @@ class StorageService {
   String get whisperModel => _prefs.getString('whisper_model') ?? 'whisper-large-v3-turbo';
   Future<void> setWhisperModel(String model) async => await _prefs.setString('whisper_model', model);
 
-  bool get autoPaste => _prefs.getBool('auto_paste') ?? false;
+  bool get autoPaste => _prefs.getBool('auto_paste') ?? true;
   Future<void> setAutoPaste(bool value) async => await _prefs.setBool('auto_paste', value);
 
   String get appLanguage => _prefs.getString('app_language') ?? 'en';
