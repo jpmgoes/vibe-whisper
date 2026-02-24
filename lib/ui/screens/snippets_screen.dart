@@ -141,7 +141,7 @@ class _SnippetsScreenState extends State<SnippetsScreen> {
                   backgroundColor: theme.colorScheme.primary,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-                  minimumSize: const Size(0, 26),
+                  minimumSize: const Size(0, 32),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                   elevation: 0,
                 ),
