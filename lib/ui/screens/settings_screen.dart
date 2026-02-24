@@ -431,11 +431,85 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ],
                 ),
+                // Erase All Data Section
+                const SizedBox(height: 32),
+                Divider(color: borderColor),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Icon(Icons.warning_amber_rounded, color: Colors.redAccent, size: 20),
+                    const SizedBox(width: 8),
+                    Text(
+                      'DANGER ZONE',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.redAccent,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent.withValues(alpha: 0.1),
+                      foregroundColor: Colors.redAccent,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: const BorderSide(color: Colors.redAccent),
+                      ),
+                      elevation: 0,
+                    ),
+                    onPressed: () => _confirmEraseAllData(context, settings, l10n),
+                    child: Text(
+                      l10n.eraseAllData,
+                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
 
-
+  void _confirmEraseAllData(BuildContext context, SettingsProvider settings, AppLocalizations l10n) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Row(
+          children: [
+            const Icon(Icons.warning, color: Colors.redAccent),
+            const SizedBox(width: 8),
+            Text(l10n.eraseAllData),
+          ],
+        ),
+        content: Text(l10n.eraseAllDataConfirm),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(l10n.cancel, style: const TextStyle(color: Colors.grey)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.redAccent,
+              foregroundColor: Colors.white,
+            ),
+            onPressed: () async {
+              Navigator.pop(context); // Close dialog
+              await settings.clearAllSettings();
+              // When groqApiKey becomes null, settings screen natively acts as the onboard screen,
+              // so it will just reload to the onboard state.
+            },
+            child: Text(l10n.eraseAllData),
+          ),
         ],
       ),
     );

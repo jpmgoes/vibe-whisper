@@ -433,6 +433,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No snippets yet.'**
   String get noSnippetsYet;
+
+  /// No description provided for @eraseAllData.
+  ///
+  /// In en, this message translates to:
+  /// **'Erase All Data'**
+  String get eraseAllData;
+
+  /// No description provided for @eraseAllDataConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to erase all data and reset the app? This action cannot be undone.'**
+  String get eraseAllDataConfirm;
 }
 
 class _AppLocalizationsDelegate

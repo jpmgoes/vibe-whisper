@@ -99,8 +99,13 @@ class StorageService {
     final jsonList = snippets.map((e) => e.toJson()).toList();
     await _secureStorage.write(key: 'voice_snippets', value: jsonEncode(jsonList));
   }
-}
 
+  // --- Reset All Data ---
+  Future<void> eraseAllData() async {
+    await _secureStorage.deleteAll();
+    await _prefs.clear();
+  }
+}
 class HistoryItem {
   final String id;
   final DateTime timestamp;

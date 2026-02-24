@@ -52,5 +52,7 @@
   "newSnippet": "Novo Snippet",
   "snippetCommandLabel": "Comando/Chave (ex: \"meu email\")",
   "snippetValueLabel": "Valor para colar",
-  "noSnippetsYet": "Nenhum snippet ainda."
+  "noSnippetsYet": "Nenhum snippet ainda.",
+  "eraseAllData": "Apagar Tudo",
+  "eraseAllDataConfirm": "Tem certeza que deseja apagar todos os dados e restaurar o aplicativo? Esta ação não pode ser desfeita."
 }

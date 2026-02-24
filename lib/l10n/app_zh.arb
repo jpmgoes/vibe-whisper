@@ -45,5 +45,7 @@
   "clearHistoryTitle": "清除历史记录",
   "clearHistoryMsg": "您确定要删除所有转录历史记录吗？此操作无法撤销。",
   "cancel": "取消",
-  "intentModel": "Intent Model (Router)"
+  "intentModel": "Intent Model (Router)",
+  "eraseAllData": "Erase All Data",
+  "eraseAllDataConfirm": "Are you sure you want to erase all data and reset the app? This action cannot be undone."
 }

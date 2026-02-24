@@ -199,6 +199,26 @@ class SettingsProvider with ChangeNotifier {
     await _notifyOthers();
   }
 
+  // --- Erase All Data ---
+  Future<void> clearAllSettings() async {
+    await _storageService.eraseAllData();
+    
+    // Reset state to defaults
+    _groqApiKey = null;
+    _llmModel = 'moonshotai/kimi-k2-instruct-0905';
+    _intentModel = 'llama3-8b-8192';
+    _whisperModel = 'whisper-large-v3-turbo';
+    _autoPaste = true;
+    _appLanguage = 'en';
+    _themeMode = 'system';
+    _globalShortcut = 'Meta+Shift+Space';
+    _history = [];
+    _snippets = [];
+
+    notifyListeners();
+    await _notifyOthers();
+  }
+
   Future<void> _notifyOthers() async {
     try {
       final windows = await WindowController.getAll();

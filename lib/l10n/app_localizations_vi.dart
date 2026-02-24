@@ -172,4 +172,11 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get noSnippetsYet => 'No snippets yet.';
+
+  @override
+  String get eraseAllData => 'Erase All Data';
+
+  @override
+  String get eraseAllDataConfirm =>
+      'Are you sure you want to erase all data and reset the app? This action cannot be undone.';
 }

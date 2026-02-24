@@ -171,4 +171,11 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get noSnippetsYet => 'Nenhum snippet ainda.';
+
+  @override
+  String get eraseAllData => 'Apagar Tudo';
+
+  @override
+  String get eraseAllDataConfirm =>
+      'Tem certeza que deseja apagar todos os dados e restaurar o aplicativo? Esta ação não pode ser desfeita.';
 }
