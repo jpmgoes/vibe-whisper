@@ -3,13 +3,13 @@ import 'package:provider/provider.dart';
 import '../../core/providers/settings_provider.dart';
 import '../../core/constants/app_languages.dart';
 import '../../l10n/app_localizations.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
 import '../../core/services/shortcut_service.dart';
+import '../widgets/custom_title_bar.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -62,19 +62,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       backgroundColor: theme.scaffoldBackgroundColor,
       body: Column(
         children: [
-          // Drag To Move Window Title Bar
-          GestureDetector(
-            onPanStart: (details) {
-              windowManager.startDragging();
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.surface,
-                border: Border(bottom: BorderSide(color: borderColor)),
-              ),
-            ),
-          ),
+          // Window Title Bar
+          const CustomTitleBar(title: 'VibeWhisper - Settings'),
 
           // Main Content
           Expanded(

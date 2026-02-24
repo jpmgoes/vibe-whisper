@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:window_manager/window_manager.dart';
 import '../../core/providers/settings_provider.dart';
 import '../../core/services/storage_service.dart';
 import 'package:uuid/uuid.dart';
 import '../../l10n/app_localizations.dart';
+import '../widgets/custom_title_bar.dart';
 
 class SnippetsScreen extends StatefulWidget {
   const SnippetsScreen({super.key});
@@ -131,45 +131,28 @@ class _SnippetsScreenState extends State<SnippetsScreen> {
       backgroundColor: theme.scaffoldBackgroundColor,
       body: Column(
         children: [
-          // Drag To Move Window Title Bar
-          GestureDetector(
-            onPanStart: (details) {
-              windowManager.startDragging();
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.surface,
-                border: Border(bottom: BorderSide(color: borderColor)),
-              ),
-              child: Row(
-                children: [
-                  const SizedBox(width: 48), // Balance the add button width
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.code, color: theme.colorScheme.primary, size: 24),
-                        const SizedBox(width: 12),
-                        Text(
-                          l10n.snippets,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    tooltip: l10n.addSnippet,
-                    onPressed: () => _showSnippetDialog(),
-                  )
-                ],
-              ),
-            ),
+          // Window Title Bar
+          CustomTitleBar(
+            title: 'Voice Snippets',
+            icon: Icons.code,
+            actions: [
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: theme.colorScheme.primary,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                  minimumSize: const Size(0, 26),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                  elevation: 0,
+                ),
+                icon: const Icon(Icons.add, size: 14),
+                label: Text(
+                  l10n.addSnippet,
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                ),
+                onPressed: () => _showSnippetDialog(),
+              )
+            ],
           ),
           
           Expanded(

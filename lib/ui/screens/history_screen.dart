@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:another_flushbar/flushbar.dart';
 import '../../core/providers/settings_provider.dart';
 import '../../core/services/storage_service.dart';
 import '../../l10n/app_localizations.dart';
+import '../widgets/custom_title_bar.dart';
 
 class HistoryScreen extends StatelessWidget {
   const HistoryScreen({super.key});
@@ -36,50 +36,28 @@ class HistoryScreen extends StatelessWidget {
       backgroundColor: theme.scaffoldBackgroundColor,
       body: Column(
         children: [
-          // Drag To Move Window Title Bar
-          GestureDetector(
-            onPanStart: (details) {
-              windowManager.startDragging();
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.surface,
-                border: Border(bottom: BorderSide(color: borderColor)),
-              ),
-              child: Row(
-                children: [
-                  const SizedBox(width: 80), // Balance the clear button width
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.history, color: theme.colorScheme.primary, size: 22),
-                        const SizedBox(width: 12),
-                        Text(
-                          l10n.transcriptionHistory,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: isDark ? Colors.grey.shade200 : Colors.grey.shade800,
-                          ),
-                        ),
-                      ],
+          // Window Title Bar
+          CustomTitleBar(
+            title: 'VibeWhisper - History',
+            actions: [
+              Consumer<SettingsProvider>(
+                builder: (context, settings, _) {
+                  if (settings.history.isEmpty) return const SizedBox();
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: TextButton.icon(
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                        minimumSize: const Size(0, 28),
+                      ),
+                      icon: const Icon(Icons.delete_sweep, size: 16, color: Colors.redAccent),
+                      label: Text(l10n.clearAll, style: const TextStyle(color: Colors.redAccent, fontSize: 13)),
+                      onPressed: () => _confirmClearHistory(context, settings, l10n),
                     ),
-                  ),
-                  Consumer<SettingsProvider>(
-                    builder: (context, settings, _) {
-                      if (settings.history.isEmpty) return const SizedBox(width: 80);
-                      return TextButton.icon(
-                        icon: const Icon(Icons.delete_sweep, size: 18, color: Colors.redAccent),
-                        label: Text(l10n.clearAll, style: const TextStyle(color: Colors.redAccent)),
-                        onPressed: () => _confirmClearHistory(context, settings, l10n),
-                      );
-                    },
-                  ),
-                ],
+                  );
+                },
               ),
-            ),
+            ],
           ),
 
           // History List

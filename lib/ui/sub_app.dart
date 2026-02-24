@@ -19,7 +19,6 @@ import '../l10n/app_localizations.dart';
 import 'screens/settings_screen.dart';
 import 'screens/history_screen.dart';
 import 'screens/snippets_screen.dart';
-import 'widgets/custom_title_bar.dart';
 
 Future<void> startSubWindow(String windowId, Map<String, dynamic> arguments) async {
   await windowManager.ensureInitialized();
@@ -117,16 +116,9 @@ class SubVibeWhisperApp extends StatelessWidget {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
       builder: (context, child) {
-        return Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Column(
-            children: [
-              CustomTitleBar(
-                title: 'VibeWhisper - ${route[0].toUpperCase()}${route.substring(1)}',
-              ),
-              Expanded(child: child ?? const SizedBox()),
-            ],
-          ),
+        return Container(
+          color: Colors.transparent,
+          child: child ?? const SizedBox(),
         );
       },
       home: homeWidget,

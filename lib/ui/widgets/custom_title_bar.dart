@@ -3,8 +3,10 @@ import 'package:window_manager/window_manager.dart';
 
 class CustomTitleBar extends StatefulWidget {
   final String title;
+  final IconData? icon;
+  final List<Widget>? actions;
 
-  const CustomTitleBar({super.key, required this.title});
+  const CustomTitleBar({super.key, required this.title, this.icon, this.actions});
 
   @override
   State<CustomTitleBar> createState() => _CustomTitleBarState();
@@ -34,17 +36,30 @@ class _CustomTitleBarState extends State<CustomTitleBar> {
             _buildWindowButtons(),
             const SizedBox(width: 16),
             Expanded(
-              child: Text(
-                widget.title,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: isDark ? Colors.white70 : Colors.black87,
-                ),
+              child: Row(
+                children: [
+                  if (widget.icon != null) ...[
+                    Icon(widget.icon, size: 16, color: isDark ? Colors.white70 : Colors.black87),
+                    const SizedBox(width: 8),
+                  ],
+                  Text(
+                    widget.title,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? Colors.white70 : Colors.black87,
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(width: 16),
+            if (widget.actions != null) ...[
+              ...widget.actions!,
+              const SizedBox(width: 16),
+            ] else ...[
+              const SizedBox(width: 16),
+            ],
           ],
         ),
       ),
