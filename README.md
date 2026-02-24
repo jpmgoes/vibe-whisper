@@ -21,17 +21,16 @@
 
 ## 🌟 Overview
 
-**VibeWhisper** is a cross-platform (macOS, Windows) intelligent voice-to-text assistant. Our core mission is to empower you to write at the speed of thought. By leveraging advanced AI models—like Whisper for lightning-fast transcription and cloud LLMs for intelligent context treatment—VibeWhisper dictates perfectly crafted text directly into any active window or text field across your operating system.
+**VibeWhisper** is a cross-platform (macOS, Windows) intelligent voice-to-text assistant. Our core mission is to empower you to write at the speed of thought. By leveraging advanced AI models—like Whisper for lightning-fast transcription and cloud LLMs for intelligent context treatment and translation—VibeWhisper dictates perfectly crafted text directly into any active window or text field across your operating system. All communications are private and secure using your own API keys.
 
 ## ✨ Key Features
 
 * ⚡ **4x Faster Than Typing:** Reach speeds of up to 220 words per minute (wpm), allowing you to express complex ideas at your natural speaking pace, completely bypassing the physical keyboard bottleneck (average 45 wpm).
 * 🤖 **AI-Powered Edits:** VibeWhisper transcribes and edits your voice instantly. Scattered, unstructured thoughts are seamlessly transformed into clear, perfectly formatted text, automatically removing filler words ("um", "uh") and speech disfluencies.
-* 📖 **Personal Dictionary:** The AI learns your unique vocabulary—names, technical jargon, acronyms—and ensures they are automatically recognized and transcribed correctly.
 * ⚡ **Snippet Library (Voice Shortcuts):** Create custom voice commands for repetitive texts. Say "my calendar link" and the AI will type out the full URL and scheduling message instantly.
-* 🎭 **Tone Adjustment:** Automatically adjusts the tone of the written output based on the application you are currently using, maintaining a natural voice while avoiding robotic phrasing.
-* 🌍 **100+ Languages:** Automatically detects and transcribes in your language, making it effortless to seamlessly switch between multiple languages on the fly.
-* 🔄 **Cross-Platform Sync:** Your configurations, dictionary, and personal style are synchronized whether you are taking notes on the go via your mobile or sitting at your desktop.
+* 🌍 **Translation:** Automatically detects your language and can translate your speech into perfect English (or other targeted languages) on the fly. Simply command it during your speech (e.g., *"Translate to Spanish: Hello, how are you?"*) and it types out *"Hola, ¿cómo estás?"*.
+* 🔒 **Secure & Private:** Your data is yours. VibeWhisper connects directly to your provided Groq API key. No audio or text is stored on third-party servers beyond the immediate API inference.
+
 
 ## 🎯 Use Cases (Who is this for?)
 
@@ -50,7 +49,7 @@ VibeWhisper is built to accelerate the workflows of professionals and creatives:
 
 ## 💻 Tech Stack
 
-* **Framework:** [Flutter](https://flutter.dev/) (macOS, Windows, iOS, Android)
+* **Framework:** [Flutter](https://flutter.dev/) (macOS, Windows)
 * **Audio Processing:** `record` plugin
 * **Transcription:** [Groq API](https://groq.com/) (using `whisper-large-v3-turbo`)
 * **LLM Treatment:** Open-source models (e.g., LLaMA-3, Mixtral)
