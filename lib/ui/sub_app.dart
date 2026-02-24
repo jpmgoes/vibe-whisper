@@ -19,6 +19,7 @@ import '../l10n/app_localizations.dart';
 import 'screens/settings_screen.dart';
 import 'screens/history_screen.dart';
 import 'screens/snippets_screen.dart';
+import 'screens/onboarding_screen.dart';
 
 Future<void> startSubWindow(String windowId, Map<String, dynamic> arguments) async {
   await windowManager.ensureInitialized();
@@ -98,7 +99,11 @@ class SubVibeWhisperApp extends StatelessWidget {
     } else if (route == 'snippets') {
       homeWidget = const SnippetsScreen();
     } else {
-      homeWidget = const SettingsScreen();
+      if (settings.groqApiKey == null || settings.groqApiKey!.isEmpty) {
+        homeWidget = const OnboardingScreen();
+      } else {
+        homeWidget = const SettingsScreen();
+      }
     }
 
     return MaterialApp(

@@ -484,8 +484,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onPressed: () async {
               Navigator.pop(context); // Close dialog
               await settings.clearAllSettings();
-              // When groqApiKey becomes null, settings screen natively acts as the onboard screen,
-              // so it will just reload to the onboard state.
             },
             child: Text(l10n.eraseAllData),
           ),
