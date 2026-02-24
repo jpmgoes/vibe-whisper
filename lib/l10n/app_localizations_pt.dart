@@ -178,4 +178,13 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get eraseAllDataConfirm =>
       'Tem certeza que deseja apagar todos os dados e restaurar o aplicativo? Esta ação não pode ser desfeita.';
+
+  @override
+  String get globalShortcutsAndGeneral => 'Atalhos Globais e Geral';
+
+  @override
+  String get pressShortcut => 'Pressione uma combinação de atalhos...';
+
+  @override
+  String get dangerZone => 'Zona de Perigo';
 }

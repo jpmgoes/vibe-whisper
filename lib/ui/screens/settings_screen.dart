@@ -221,7 +221,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Icon(Icons.keyboard, color: theme.colorScheme.primary, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'GLOBAL SHORTCUTS & GENERAL',
+                      l10n.globalShortcutsAndGeneral.toUpperCase(),
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -255,7 +255,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Press a shortcut combination...',
+                                        l10n.pressShortcut,
                                         style: TextStyle(fontSize: 11, color: theme.colorScheme.primary, fontStyle: FontStyle.italic),
                                       ),
                                       const SizedBox(height: 8),
@@ -278,7 +278,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                                 _tempHotKey = null;
                                               });
                                             },
-                                            child: Text('Cancel', style: TextStyle(color: Colors.grey.shade500, fontSize: 13)),
+                                            child: Text(l10n.cancel, style: TextStyle(color: Colors.grey.shade500, fontSize: 13)),
                                           ),
                                           const SizedBox(width: 8),
                                           ElevatedButton(
@@ -302,7 +302,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                               foregroundColor: Colors.white,
                                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                                             ),
-                                            child: const Text('Save', style: TextStyle(fontSize: 13)),
+                                            child: Text(l10n.save, style: const TextStyle(fontSize: 13)),
                                           ),
                                         ],
                                       ),
@@ -419,7 +419,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Icon(Icons.warning_amber_rounded, color: Colors.redAccent, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'DANGER ZONE',
+                      l10n.dangerZone.toUpperCase(),
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,

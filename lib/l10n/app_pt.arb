@@ -54,5 +54,8 @@
   "snippetValueLabel": "Valor para colar",
   "noSnippetsYet": "Nenhum snippet ainda.",
   "eraseAllData": "Apagar Tudo",
-  "eraseAllDataConfirm": "Tem certeza que deseja apagar todos os dados e restaurar o aplicativo? Esta ação não pode ser desfeita."
+  "eraseAllDataConfirm": "Tem certeza que deseja apagar todos os dados e restaurar o aplicativo? Esta ação não pode ser desfeita.",
+  "globalShortcutsAndGeneral": "Atalhos Globais e Geral",
+  "pressShortcut": "Pressione uma combinação de atalhos...",
+  "dangerZone": "Zona de Perigo"
 }

@@ -173,4 +173,13 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get eraseAllDataConfirm =>
       'Are you sure you want to erase all data and reset the app? This action cannot be undone.';
+
+  @override
+  String get globalShortcutsAndGeneral => 'Global Shortcuts & General';
+
+  @override
+  String get pressShortcut => 'Press a shortcut combination...';
+
+  @override
+  String get dangerZone => 'Danger Zone';
 }

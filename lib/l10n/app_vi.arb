@@ -47,5 +47,8 @@
   "cancel": "Hủy",
   "intentModel": "Intent Model (Router)",
   "eraseAllData": "Erase All Data",
-  "eraseAllDataConfirm": "Are you sure you want to erase all data and reset the app? This action cannot be undone."
+  "eraseAllDataConfirm": "Are you sure you want to erase all data and reset the app? This action cannot be undone.",
+  "globalShortcutsAndGeneral": "Global Shortcuts & General",
+  "pressShortcut": "Press a shortcut combination...",
+  "dangerZone": "Danger Zone"
 }

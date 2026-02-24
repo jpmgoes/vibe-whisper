@@ -445,6 +445,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to erase all data and reset the app? This action cannot be undone.'**
   String get eraseAllDataConfirm;
+
+  /// No description provided for @globalShortcutsAndGeneral.
+  ///
+  /// In en, this message translates to:
+  /// **'Global Shortcuts & General'**
+  String get globalShortcutsAndGeneral;
+
+  /// No description provided for @pressShortcut.
+  ///
+  /// In en, this message translates to:
+  /// **'Press a shortcut combination...'**
+  String get pressShortcut;
+
+  /// No description provided for @dangerZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Danger Zone'**
+  String get dangerZone;
 }
 
 class _AppLocalizationsDelegate
