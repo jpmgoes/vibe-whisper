@@ -21,7 +21,7 @@
 
 ## 🌟 Overview
 
-**VibeWhisper** is a cross-platform (macOS, Windows, iOS, Android) intelligent voice-to-text assistant. Our core mission is to empower you to write at the speed of thought. By leveraging advanced AI models—like Whisper for lightning-fast transcription and cloud LLMs for intelligent context treatment—VibeWhisper dictates perfectly crafted text directly into any active window or text field across your operating system.
+**VibeWhisper** is a cross-platform (macOS, Windows) intelligent voice-to-text assistant. Our core mission is to empower you to write at the speed of thought. By leveraging advanced AI models—like Whisper for lightning-fast transcription and cloud LLMs for intelligent context treatment—VibeWhisper dictates perfectly crafted text directly into any active window or text field across your operating system.
 
 ## ✨ Key Features
 
