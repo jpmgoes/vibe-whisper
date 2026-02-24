@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:hotkey_manager/hotkey_manager.dart';
 import '../../core/services/shortcut_service.dart';
 import '../widgets/custom_title_bar.dart';
+import 'dart:math' as math;
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -77,29 +78,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Center(
                   child: Column(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                        decoration: BoxDecoration(
-                          color: isDark ? Colors.black : Colors.grey.shade900,
-                          borderRadius: BorderRadius.circular(24),
-                          border: Border.all(color: isDark ? const Color(0xFF27272a) : Colors.grey.shade200),
-                          boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: List.generate(8, (index) {
-                            return Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 2),
-                              width: 4,
-                              height: index % 2 == 0 ? 12 : 18,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(2),
-                              ),
-                            );
-                          }),
-                        ),
-                      ),
+                      AnimatedSoundWave(isDark: isDark),
                       const SizedBox(height: 12),
                       Text(
                         'READY TO LISTEN',
@@ -614,6 +593,74 @@ class _KeyboardKey extends StatelessWidget {
           fontWeight: FontWeight.bold,
           color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
         ),
+      ),
+    );
+  }
+}
+
+class AnimatedSoundWave extends StatefulWidget {
+  final bool isDark;
+  const AnimatedSoundWave({super.key, required this.isDark});
+
+  @override
+  State<AnimatedSoundWave> createState() => _AnimatedSoundWaveState();
+}
+
+class _AnimatedSoundWaveState extends State<AnimatedSoundWave> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      decoration: BoxDecoration(
+        color: widget.isDark ? Colors.black : Colors.grey.shade900,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: widget.isDark ? const Color(0xFF27272a) : Colors.grey.shade200),
+        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
+      ),
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return Row(
+            mainAxisSize: MainAxisSize.min,
+            children: List.generate(8, (index) {
+              // Creating a natural wave using combined sine functions
+              final t = _controller.value * 2 * math.pi;
+              final phase = index * (math.pi / 4);
+              final wave1 = math.sin(t + phase);
+              final wave2 = math.sin(2 * t - phase);
+              
+              final combined = wave1 + wave2 * 0.5; // range: ~[-1.5, 1.5]
+              final height = 14.0 + (combined * 6.0); // range: ~[5, 23]
+
+              return Container(
+                margin: const EdgeInsets.symmetric(horizontal: 2),
+                width: 4,
+                height: height.clamp(4.0, 24.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              );
+            }),
+          );
+        },
       ),
     );
   }
