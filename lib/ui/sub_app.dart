@@ -102,7 +102,12 @@ class SubVibeWhisperApp extends StatelessWidget {
     }
 
     return MaterialApp(
-      title: 'VibeWhisper - ${route[0].toUpperCase()}${route.substring(1)}',
+      onGenerateTitle: (context) {
+        final l10n = AppLocalizations.of(context)!;
+        if (route == 'history') return l10n.transcriptionHistory;
+        if (route == 'snippets') return l10n.snippets;
+        return l10n.settings;
+      },
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,

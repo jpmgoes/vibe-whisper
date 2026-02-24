@@ -63,7 +63,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Column(
         children: [
           // Window Title Bar
-          const CustomTitleBar(title: 'VibeWhisper - Settings'),
+          CustomTitleBar(
+            title: l10n.settings,
+            icon: Icons.settings,
+          ),
 
           // Main Content
           Expanded(

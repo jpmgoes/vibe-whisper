@@ -38,7 +38,8 @@ class HistoryScreen extends StatelessWidget {
         children: [
           // Window Title Bar
           CustomTitleBar(
-            title: 'VibeWhisper - History',
+            title: l10n.transcriptionHistory,
+            icon: Icons.history,
             actions: [
               Consumer<SettingsProvider>(
                 builder: (context, settings, _) {

@@ -133,7 +133,7 @@ class _SnippetsScreenState extends State<SnippetsScreen> {
         children: [
           // Window Title Bar
           CustomTitleBar(
-            title: 'Voice Snippets',
+            title: l10n.snippets,
             icon: Icons.code,
             actions: [
               ElevatedButton.icon(
