@@ -637,9 +637,12 @@ class _AnimatedSoundWaveState extends State<AnimatedSoundWave> with SingleTicker
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
-          return Row(
-            mainAxisSize: MainAxisSize.min,
-            children: List.generate(8, (index) {
+          return SizedBox(
+            height: 24,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: List.generate(8, (index) {
               // Creating a natural wave using combined sine functions
               final t = _controller.value * 2 * math.pi;
               final phase = index * (math.pi / 4);
@@ -659,7 +662,8 @@ class _AnimatedSoundWaveState extends State<AnimatedSoundWave> with SingleTicker
                 ),
               );
             }),
-          );
+          ),
+        );
         },
       ),
     );
