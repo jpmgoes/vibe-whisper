@@ -12,7 +12,45 @@ class CustomTitleBar extends StatefulWidget {
   State<CustomTitleBar> createState() => _CustomTitleBarState();
 }
 
-class _CustomTitleBarState extends State<CustomTitleBar> {
+class _CustomTitleBarState extends State<CustomTitleBar> with WindowListener {
+  bool _isFocused = true;
+
+  @override
+  void initState() {
+    super.initState();
+    windowManager.addListener(this);
+    _checkFocus();
+  }
+
+  void _checkFocus() async {
+    bool focused = await windowManager.isFocused();
+    if (mounted) {
+      setState(() {
+        _isFocused = focused;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    super.dispose();
+  }
+
+  @override
+  void onWindowFocus() {
+    setState(() {
+      _isFocused = true;
+    });
+  }
+
+  @override
+  void onWindowBlur() {
+    setState(() {
+      _isFocused = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -33,7 +71,7 @@ class _CustomTitleBarState extends State<CustomTitleBar> {
           children: [
             const SizedBox(width: 16),
             // Custom macOS style buttons
-            _buildWindowButtons(),
+            _buildWindowButtons(isDark),
             const SizedBox(width: 16),
             Expanded(
               child: Row(
@@ -66,7 +104,7 @@ class _CustomTitleBarState extends State<CustomTitleBar> {
     );
   }
 
-  Widget _buildWindowButtons() {
+  Widget _buildWindowButtons(bool isDark) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -74,12 +112,16 @@ class _CustomTitleBarState extends State<CustomTitleBar> {
           color: Colors.redAccent,
           icon: Icons.close,
           onTap: () => windowManager.close(),
+          isFocused: _isFocused,
+          isDark: isDark,
         ),
         const SizedBox(width: 8),
         _WindowButton(
           color: Colors.orangeAccent,
           icon: Icons.remove,
           onTap: () => windowManager.minimize(),
+          isFocused: _isFocused,
+          isDark: isDark,
         ),
         const SizedBox(width: 8),
         _WindowButton(
@@ -92,6 +134,8 @@ class _CustomTitleBarState extends State<CustomTitleBar> {
               windowManager.maximize();
             }
           },
+          isFocused: _isFocused,
+          isDark: isDark,
         ),
       ],
     );
@@ -102,11 +146,15 @@ class _WindowButton extends StatefulWidget {
   final Color color;
   final IconData icon;
   final VoidCallback onTap;
+  final bool isFocused;
+  final bool isDark;
 
   const _WindowButton({
     required this.color,
     required this.icon,
     required this.onTap,
+    required this.isFocused,
+    required this.isDark,
   });
 
   @override
@@ -118,6 +166,9 @@ class _WindowButtonState extends State<_WindowButton> {
 
   @override
   Widget build(BuildContext context) {
+    final unfocusedColor = widget.isDark ? Colors.white24 : Colors.black26;
+    final baseColor = widget.isFocused ? widget.color : unfocusedColor;
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -128,10 +179,12 @@ class _WindowButtonState extends State<_WindowButton> {
           width: 12,
           height: 12,
           decoration: BoxDecoration(
-            color: _isHovered ? widget.color : widget.color.withValues(alpha: 0.5),
+            color: widget.isFocused 
+                ? (_isHovered ? baseColor : baseColor.withValues(alpha: 1.0)) 
+                : baseColor,
             shape: BoxShape.circle,
           ),
-          child: _isHovered
+          child: (_isHovered && widget.isFocused)
               ? Icon(widget.icon, size: 10, color: Colors.black87)
               : null,
         ),
