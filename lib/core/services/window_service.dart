@@ -15,7 +15,7 @@ class WindowService {
   static Future<String?> _createOrFocus(String route) async {
     final windows = await WindowController.getAll();
     for (var window in windows) {
-      if (window.windowId != 0) {
+      if (window.windowId != '0') {
          if (window.arguments.isNotEmpty) {
            try {
               final args = jsonDecode(window.arguments);
